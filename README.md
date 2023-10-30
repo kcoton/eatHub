@@ -22,20 +22,5 @@
   - Final debugging/testing
   - Integrate front end / back end
 
-## Task (Owner)
-|Task|Owner|Description|
-|-|-|-|
-|GUI| | |
-| Queries: INSERT | | |
-| Queries: DELETE | | |
-| Queries: UPDATE | | |
-| Queries: SELECTION | | |
-| Queries: PROJECTION | | |
-| Queries: JOIN | | |
-| Queries: GROUPBY | | |
-| Queries: HAVING | | |
-| Queries: JOINNESTED AGGREGATION WITH GROUPBY | | |
-| Queries: DIVISION | | |
-
 ## Challenges
 n/a
