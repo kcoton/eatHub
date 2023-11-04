@@ -64,5 +64,51 @@ router.get('/count-demotable', async (req, res) => {
     }
 });
 
+// mock get request to CREATE table
+router.get('/createtables', async (req, res) => {
+    try {
+        const tableContent = await appService.createTables();
+        res.json({
+            returned: tableContent
+        })
+    }catch(e) {
+        console.log("create threw an error");
+    }
+});
+
+
+// mock get request to INSERT sample tables
+router.get('/insertsamples', async (req, res) => {
+    try {
+        const tableContent = await appService.insertSamples();
+        res.json({
+            returned: tableContent
+        })
+    }catch(e) {
+        console.log("insertsamples threw an error");
+    }
+});
+
+// convert viewtable url param
+router.param('tableName', function(req, res, next, tableName) {
+    const modified = tableName.toUpperCase();
+  
+    req.tableName = modified;
+    next();
+});
+
+// mock get request to create table
+router.get('/viewtable/:tableName', async (req, res) => {
+    try {
+        const tableName = req.tableName;
+        console.log(tableName);
+        const tableContent = await appService.viewTable(tableName);
+        res.json({
+            data: tableContent
+        });
+    }catch(e) {
+        console.log("createtable threw an error");
+    }
+});
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const oracledb = require('oracledb');
+const fs = require('fs');
 const loadEnvFile = require('./utils/envUtil');
 
 const envVariables = loadEnvFile('./.env');
@@ -110,11 +111,87 @@ async function countDemotable() {
     });
 }
 
+// Used to Create Table from schema.sql
+async function createTables(){
+    try {    
+        const sql = fs.readFileSync('db/schema.sql','utf-8');
+        const statements = sql.split(';');
+        
+        // let i = 0;
+        for (const statement of statements) {
+            if (statement.trim() === '') {
+                continue;
+            }
+            
+            let status = await withOracleDB(async (connection) => {
+                try {
+                    let result = await connection.execute(statement.trim());
+                    let commit = await connection.commit();
+                } catch(err) {
+                    console.log('err @ appService.createTable: ' + err);
+                }   
+            });
+        }
+        
+        console.log("creating table finished");
+        return "creating table finished";
+
+    } catch (e) {
+        console.log("File not read correctly. Tables not created correctly.")
+    }
+}
+
+// Used to INSERT samle table
+async function insertSamples(){
+    try {    
+        const sql = fs.readFileSync('db/insert_samples.sql','utf-8');
+        const statements = sql.split(';');
+        
+        // let i = 0;
+        for (const statement of statements) {
+            if (statement.trim() === '') {
+                continue;
+            }
+            
+            let status = await withOracleDB(async (connection) => {
+                try {
+                    let result = await connection.execute(statement.trim());
+                    let commit = await connection.commit();
+                } catch(err) {
+                    console.log('err @ appService.insertSamples: ' + err);
+                }   
+            });
+        }
+        
+        console.log("loading data finished");
+        return "loading data finished";
+
+    } catch (e) {
+        console.log("File not read correctly. Tables not created correctly.")
+    }
+}
+
+async function viewTable(tableName) {
+    return await withOracleDB(async (connection) => {
+        const query = `SELECT * FROM ${tableName}`
+        console.log(query);
+        const result = await connection.execute(`SELECT * FROM ${tableName}`);
+        console.log('results: ', result);
+        return result.rows;
+    }).catch((err) => {
+        console.log("error caught at getTable: ",err);
+        return [];
+    });
+}
+
 module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
     initiateDemotable, 
     insertDemotable, 
     updateNameDemotable, 
-    countDemotable
+    countDemotable,
+    insertSamples,
+    viewTable,
+    createTables
 };
