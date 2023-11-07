@@ -37,3 +37,9 @@
 
 ## Challenges
 n/a
+
+## Setup (deploy ugrad server)
+- Navigate to project folder directory
+  - Run script: `sh ./remote-start.sh`
+  - Note down the port number to use for next step
+  - Open new terminal, run script: `sh ./scripts/mac/server-tunnel.sh`
