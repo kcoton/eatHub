@@ -45,4 +45,7 @@ n/a
   - Open new terminal, run script: `sh ./scripts/mac/server-tunnel.sh`
 
 ## References:
-- CSS Sidebar: https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp
+- Sample Code from CPSC 304: 
+  - https://www.students.cs.ubc.ca/~cs-304/resources/javascript-oracle-resources/node-setup.html
+- CSS Sidebar: 
+  - https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp
