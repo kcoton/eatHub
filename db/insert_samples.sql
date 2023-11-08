@@ -1,8 +1,11 @@
-INSERT INTO UserInfo (userID, email, name, birthday, weight, height) VALUES (1, 'tony.stark@gmail.com', 'Tony Stark', TO_DATE('1980-02-28', 'YYYY-MM-DD'), 220, 190);
-INSERT INTO UserInfo (userID, email, name, birthday, weight, height) VALUES (2, 'diana.prince@gmail.com', 'Diana Prince', TO_DATE('1985-10-25', 'YYYY-MM-DD'), 150, 180);
-INSERT INTO UserInfo (userID, email, name, birthday, weight, height) VALUES (3, 'bruce.wayne@gmail.com', 'Bruce Wayne', TO_DATE('1975-03-30', 'YYYY-MM-DD'), 180, 188);
-INSERT INTO UserInfo (userID, email, name, birthday, weight, height) VALUES (4, 'peter.parker@gmail.com', 'Peter Parker', TO_DATE('1995-08-15', 'YYYY-MM-DD'), 167, 178);
-INSERT INTO UserInfo (userID, email, name, birthday, weight, height) VALUES (5, 'miles.morales@gmail.com', 'Miles Morales', TO_DATE('2001-11-12', 'YYYY-MM-DD'), 160, 175);
+INSERT INTO UserType (userType, typeName) VALUES (1, 'admin');
+INSERT INTO UserType (userType, typeName) VALUES (2, 'contributor');
+
+INSERT INTO UserInfo (userID, userType, email, name, birthday, weight, height) VALUES (1, 1, 'tony.stark@gmail.com', 'Tony Stark', TO_DATE('1980-02-28', 'YYYY-MM-DD'), 220, 190);
+INSERT INTO UserInfo (userID, userType, email, name, birthday, weight, height) VALUES (2, 2, 'diana.prince@gmail.com', 'Diana Prince', TO_DATE('1985-10-25', 'YYYY-MM-DD'), 150, 180);
+INSERT INTO UserInfo (userID, userType, email, name, birthday, weight, height) VALUES (3, 2, 'bruce.wayne@gmail.com', 'Bruce Wayne', TO_DATE('1975-03-30', 'YYYY-MM-DD'), 180, 188);
+INSERT INTO UserInfo (userID, userType, email, name, birthday, weight, height) VALUES (4, 2, 'peter.parker@gmail.com', 'Peter Parker', TO_DATE('1995-08-15', 'YYYY-MM-DD'), 167, 178);
+INSERT INTO UserInfo (userID, userType, email, name, birthday, weight, height) VALUES (5, 2, 'miles.morales@gmail.com', 'Miles Morales', TO_DATE('2001-11-12', 'YYYY-MM-DD'), 160, 175);
 
 INSERT INTO UserAge (birthday, age) VALUES (TO_DATE('1980-02-28', 'YYYY-MM-DD'), 53);
 INSERT INTO UserAge (birthday, age) VALUES (TO_DATE('1985-10-25', 'YYYY-MM-DD'), 38);
