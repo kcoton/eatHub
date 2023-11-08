@@ -43,3 +43,6 @@ n/a
   - Run script: `sh ./remote-start.sh`
   - Note down the port number to use for next step
   - Open new terminal, run script: `sh ./scripts/mac/server-tunnel.sh`
+
+## References:
+- CSS Sidebar: https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp
