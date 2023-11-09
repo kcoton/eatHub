@@ -43,3 +43,9 @@ n/a
   - Run script: `sh ./remote-start.sh`
   - Note down the port number to use for next step
   - Open new terminal, run script: `sh ./scripts/mac/server-tunnel.sh`
+
+## References:
+- Sample Code from CPSC 304: 
+  - https://www.students.cs.ubc.ca/~cs-304/resources/javascript-oracle-resources/node-setup.html
+- CSS Sidebar: 
+  - https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp

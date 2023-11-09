@@ -8,36 +8,41 @@
     <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
     <link rel="stylesheet" href="styles.css">  
 
-    <title>Login Select</title>
+    <title>Contributor Dashboard</title>
 </head>
 <body>
-    <img src="/assets/eathub-logo/svg/logo-no-background.svg" width="50%">
+
+<div class="sidebar">
+    <a class="active" href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+    <a href="/">Logout</a>
+</div>
+
+<div class="content">
+
     <!-- ===================================================================================== -->
     <!-- Display the current status of the database connection. 
-         !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
-         -->
+            !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
+            -->
     <h2>Database Connection Status: 
         <!-- An in-line placeholder to display connection status. -->
         <span id="dbStatus"> </span>
         <!-- A loading GIF, will be hided once get the status. -->
         <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
     </h2>
-    <hr><!-- ========================================================================= -->
+    <hr> <!-- ========================================================================= -->
 
-    <!-- Show 'UserType'. 
-        Data will be fetched and inserted here dynamically using JavaScript. -->
-    <h2>Login to EatHub</h2>
-    <!-- <form id="login"> -->
-        <label for="userType">Select A User:</label>
-        <select name="userType" id="userType" required></select>
-        <button id="login" onclick="login()">login</button><br>
-    <!-- </form> -->
-    <br><hr><br><!-- ========================================================================= -->
+    <h2>Contributor Dashboard</h2>
+    <p>This example use media queries to transform the sidebar to a top navigation bar when the screen size is 700px or less.</p>
+    <p>We have also added a media query for screens that are 400px or less, which will vertically stack and center the navigation links.</p>
+    <h3>Resize the browser window to see the effect.</h3>
 
+</div>
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
     <script src="scripts.js"></script>
-    <script src="login.js"></script>
 </body>
 </html>

@@ -45,71 +45,8 @@ async function testOracleConnection() {
     });
 }
 
-async function fetchDemotableFromDb() {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM DEMOTABLE');
-        return result.rows;
-    }).catch(() => {
-        return [];
-    });
-}
 
-async function initiateDemotable() {
-    return await withOracleDB(async (connection) => {
-        try {
-            await connection.execute(`DROP TABLE DEMOTABLE`);
-        } catch(err) {
-            console.log('Table might not exist, proceeding to create...');
-        }
-
-        const result = await connection.execute(`
-            CREATE TABLE DEMOTABLE (
-                id NUMBER PRIMARY KEY,
-                name VARCHAR2(20)
-            )
-        `);
-        return true;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function insertDemotable(id, name) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `INSERT INTO DEMOTABLE (id, name) VALUES (:id, :name)`,
-            [id, name],
-            { autoCommit: true }
-        );
-
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function updateNameDemotable(oldName, newName) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `UPDATE DEMOTABLE SET name=:newName where name=:oldName`,
-            [newName, oldName],
-            { autoCommit: true }
-        );
-
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function countDemotable() {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT Count(*) FROM DEMOTABLE');
-        return result.rows[0][0];
-    }).catch(() => {
-        return -1;
-    });
-}
+/** INITIATE SQL */
 
 // Used to Create Table from schema.sql
 async function createTables(){
@@ -141,7 +78,7 @@ async function createTables(){
     }
 }
 
-// Used to INSERT samle table
+// Used to INSERT sample table
 async function insertSamples(){
     try {    
         const sql = fs.readFileSync('db/insert_samples.sql','utf-8');
@@ -171,27 +108,23 @@ async function insertSamples(){
     }
 }
 
-async function viewTable(tableName) {
+
+/** GET, POST, UPDATE, DELETE TO DB */
+
+async function getTable(tableName) {
     return await withOracleDB(async (connection) => {
-        const query = `SELECT * FROM ${tableName}`
-        console.log(query);
         const result = await connection.execute(`SELECT * FROM ${tableName}`);
-        console.log('results: ', result);
         return result.rows;
-    }).catch((err) => {
-        console.log("error caught at getTable: ",err);
+    }).catch((e) => {
+        console.log("Error at getTable", e);
         return [];
     });
 }
 
+
 module.exports = {
     testOracleConnection,
-    fetchDemotableFromDb,
-    initiateDemotable, 
-    insertDemotable, 
-    updateNameDemotable, 
-    countDemotable,
+    createTables,
     insertSamples,
-    viewTable,
-    createTables
+    getTable
 };
