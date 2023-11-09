@@ -24,7 +24,7 @@
 ## Tasks for Core Functionalities
 | Item | Demo | Owner | 
 |-|-|-|
-| Insert | Insert Feedback (foreign key is versionID) | Eric |
+| Insert | Insert User (foreign key is userType) | Eric |
 | Delete | Delete Recipe (cacade to delete Versions) | Eric |
 | Update | Modify Feedback (date/time are 2 non-primary keys. Will have a "versionID" to choose as foreign key) | Eric |
 | Selection | Query Versions' by calories / name / categories | Eric |
