@@ -38,6 +38,83 @@
     <p>This example use media queries to transform the sidebar to a top navigation bar when the screen size is 700px or less.</p>
     <p>We have also added a media query for screens that are 400px or less, which will vertically stack and center the navigation links.</p>
     <h3>Resize the browser window to see the effect.</h3>
+
+    <h2>Add User</h2>
+    <h2> Insert Values into DemoTable </h2>
+    <form id="insertDemotable">
+        <div class="row">
+            <div class="column" >
+                <label for="UserID">User Id</label>
+                <input id="user_first_name" name="user[first_name]" size="30" type="text" />
+            </div>
+
+            <div class="column" >
+                <label for="UserType">User Type</label>
+                <input id="user_first_name" name="user[first_name]" size="30" type="text" />
+            </div>
+        </div>
+        
+        <!-- <div style="float:left;">
+            <label for="UserType">User Type</label>
+            <input id="user_first_name" name="user[first_name]" size="30" type="text" />
+        </div>
+         -->
+        
+        ID: <input type="number" id="insertId" placeholder="Enter ID" required> <br><br>
+        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
+        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
+        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
+        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
+        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
+        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
+
+        <button type="submit"> insert </button> <br>
+    </form>
+
+    <form>
+        <fieldset>
+            <legend>Person</legend>
+    
+            <div class="frm">
+                <table>
+                    <tr>
+                        <td class="lbl"><label for="name">Name:</label></td>
+                        <td><input class="fld" id="name" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl"><label for="email">Email:</label></td>
+                        <td><input class="fld" id="email" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl"><label for="dob">Date of birth:</label></td>
+                        <td><input class="fld" id="dob" type="text"></td>
+                    </tr>
+                </table>
+            </div>
+    
+            <div class="frm">
+                <table>
+                    <tr>
+                        <td class="lbl"><label for="addr">Address:</label></td>
+                        <td><input class="fld" id="addr" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl"><label for="city">City:</label></td>
+                        <td><input class="fld" id="city" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl"><label for="ctry">Country:</label></td>
+                        <td><input class="fld" id="ctry" type="text"></td>
+                    </tr>
+                </table>
+            </div>
+    
+        </fieldset>
+    </form>
+    
+    <div id="insertResultMsg"></div>
+
+
     <h2>View All Users</h2>
     <table id="userTable" border="1">
         <thead>

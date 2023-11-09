@@ -137,3 +137,10 @@ div.content {
         float: none;
     }
 }
+
+/** TABLE STYLE */
+
+.column {
+    float: left;
+    width: 50%;
+    }
