@@ -1,3 +1,5 @@
+-- TABLES ADDED IN MILESTONE 4/5: UserType, Feedback
+
 -- DROP
 DROP TABLE UserType CASCADE CONSTRAINTS;
 DROP TABLE UserInfo CASCADE CONSTRAINTS;
@@ -11,6 +13,7 @@ DROP TABLE GroceryList CASCADE CONSTRAINTS;
 DROP TABLE Ingredient CASCADE CONSTRAINTS;
 DROP TABLE Comments CASCADE CONSTRAINTS;
 DROP TABLE Rating CASCADE CONSTRAINTS;
+DROP TABLE Feedback CASCADE CONSTRAINTS;
 DROP TABLE Contains CASCADE CONSTRAINTS;
 DROP TABLE Uses CASCADE CONSTRAINTS;
 DROP TABLE References CASCADE CONSTRAINTS;
@@ -115,7 +118,7 @@ CREATE TABLE Comments (
     userID		    INTEGER	NOT NULL,
     feedbackDate	DATE,
     feedbackTime	TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    feedbackText	VARCHAR(400),
+    feedbackComment	VARCHAR(400),
 	PRIMARY KEY     (feedbackID),
     FOREIGN KEY (userID)
 		REFERENCES UserInfo(userID)
@@ -127,11 +130,28 @@ CREATE TABLE Rating (
     userID		    INTEGER,
     feedbackDate	DATE,
     feedbackTime	TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    feedbackNumber	INTEGER	NOT NULL,
+    feedbackRating	INTEGER	NOT NULL,
 	PRIMARY KEY     (feedbackID),
     FOREIGN KEY (userID)
 		REFERENCES UserInfo(userID)
         ON DELETE CASCADE
+);
+
+CREATE TABLE Feedback (
+	feedbackID	    INTEGER,
+	versionID		INTEGER,
+	recipeID		INTEGER,
+    userID		    INTEGER,
+	feedbackComment	VARCHAR(400),
+    feedbackRating	INTEGER	NOT NULL,
+    feedbackDate	DATE DEFAULT SYSDATE NOT NULL,
+	PRIMARY KEY (feedbackID, versionID, recipeID, userID),
+    FOREIGN KEY (versionID, recipeID)
+		REFERENCES Version(versionID, recipeID)
+			ON DELETE CASCADE,
+	FOREIGN KEY (userID)
+		REFERENCES UserInfo(userID)
+        	ON DELETE CASCADE
 );
 
 CREATE TABLE Contains (
