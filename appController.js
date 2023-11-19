@@ -48,5 +48,15 @@ router.get('/get-table/:tableName', async (req, res) => {
     res.json({ data: tableContent });
 });
 
+// insert new user into UserInfo using POST request
+router.post('/insert-user', async (req, res) => {
+    const { userId, userType, email, name, birthday, weight, height } = req.body;
+    const insertResult = await appService.insertUser(userId, userType, email, name, birthday, weight, height);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 module.exports = router;

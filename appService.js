@@ -111,6 +111,8 @@ async function insertSamples(){
 
 /** GET, POST, UPDATE, DELETE TO DB */
 
+
+// GET: returns rows in a table
 async function getTable(tableName) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT * FROM ${tableName}`);
@@ -121,10 +123,27 @@ async function getTable(tableName) {
     });
 }
 
+// POST: inserts a user into UserInfo
+async function insertUser(userId, userType, email, name, birthday, weight, height) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO USERINFO (userId, userType, email, name, birthday, weight, height) 
+            VALUES (:userId, :userType, :email, :name, TO_DATE(:birthday, 'YYYY-MM-DD'), :weight, :height)`,
+            [userId, userType, email, name, birthday, weight, height],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 
 module.exports = {
     testOracleConnection,
     createTables,
     insertSamples,
-    getTable
+    getTable,
+    insertUser
 };
