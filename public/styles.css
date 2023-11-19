@@ -148,3 +148,8 @@ form.insert-user {
     display: grid;
     grid-template-columns: 20% 50%;
 }
+
+form.insert-meal {
+    display: grid;
+    grid-template-columns: 10% 30%;
+}

@@ -112,10 +112,14 @@ async function insertSamples(){
 /** GET, POST, UPDATE, DELETE TO DB */
 
 
-// GET: returns rows in a table
-async function getTable(tableName) {
+// GET: returns all rows in a table OR all rows containing a userId
+async function getTable(tableName, userId = null) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT * FROM ${tableName}`);
+        let query = `SELECT * FROM ${tableName}`;
+        if (!!userId) {
+            query = query.concat(` WHERE userId = ${userId}`);
+        }
+        const result = await connection.execute(query);
         return result.rows;
     }).catch((e) => {
         console.log("Error at getTable", e);
@@ -139,11 +143,28 @@ async function insertUser(userId, userType, email, name, birthday, weight, heigh
     });
 }
 
+// POST: inserts a meal into Meal
+async function insertMeal(mealId, mealPlanId, mealName, mealCategory, mealDay) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO MEAL (mealId, mealPlanId, mealName, mealCategory, mealDay) 
+            VALUES (:mealId, :mealPlanId, :mealName, :mealCategory, TO_DATE(:mealDay, 'YYYY-MM-DD'))`,
+            [mealId, mealPlanId, mealName, mealCategory, mealDay],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 
 module.exports = {
     testOracleConnection,
     createTables,
     insertSamples,
     getTable,
-    insertUser
+    insertUser,
+    insertMeal
 };
