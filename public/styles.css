@@ -96,6 +96,11 @@ input::placeholder, textarea::placeholder {
     overflow: auto;
 }
 
+.sidebar h3 {
+    display: block;
+    padding: 0 16px 0 16px;
+}
+
 .sidebar a {
     display: block;
     color: black;
@@ -136,4 +141,10 @@ div.content {
         text-align: center;
         float: none;
     }
+}
+
+/* FORM STYLE */
+form {
+    display: grid;
+    grid-template-columns: 10% 30%;
 }

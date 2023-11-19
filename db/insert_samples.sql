@@ -30,6 +30,11 @@ INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServ
 INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (2, 3, 'For a spicier version, add chili flakes and ginger while stir-frying the chicken. Serve with steamed rice.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 400);
 INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (2, 4, 'Use low-sodium soy sauce and olive oil for a healthier option. Include sliced carrots and snap peas for added crunch.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 330);
 INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (2, 5, 'Make it gluten-free by using tamari sauce. Add water chestnuts and baby corn for a unique twist.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 360);
+INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (3, 6, 'Make it gluten-free by using tamari sauce. Add water chestnuts and baby corn for a unique twist.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 360);
+INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (3, 7, 'Make it gluten-free by using tamari sauce. Add water chestnuts and baby corn for a unique twist.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 360);
+INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (3, 8, 'Make it gluten-free by using tamari sauce. Add water chestnuts and baby corn for a unique twist.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 360);
+INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (3, 9, 'Make it gluten-free by using tamari sauce. Add water chestnuts and baby corn for a unique twist.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 360);
+INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (3, 10, 'Make it gluten-free by using tamari sauce. Add water chestnuts and baby corn for a unique twist.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 360);
 
 INSERT INTO MealPlan (mealplanID, userID, mealplanName, mealplanCategory) VALUES (3, 1, 'Family Dinners', 'Homestyle');
 INSERT INTO MealPlan (mealplanID, userID, mealplanName, mealplanCategory) VALUES (4, 2, 'Gluten-Free Week', 'Gluten-Free');
@@ -55,17 +60,23 @@ INSERT INTO Ingredient (ingredientName, unitOfMeasure, ingredientCategory) VALUE
 INSERT INTO Ingredient (ingredientName, unitOfMeasure, ingredientCategory) VALUES ('Rice', 'Cup', 'Grain');
 INSERT INTO Ingredient (ingredientName, unitOfMeasure, ingredientCategory) VALUES ('Garlic', 'Cloves', 'Vegetable');
 
-INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackText) VALUES (1, 1, TO_DATE('2023-10-20', 'YYYY-MM-DD'), TO_TIMESTAMP('14:30:00', 'HH24:MI:SS'), 'Great recipe! I loved it.');
-INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackText) VALUES (2, 1, TO_DATE('2023-10-21', 'YYYY-MM-DD'), TO_TIMESTAMP('09:45:00', 'HH24:MI:SS'), 'This meal plan is fantastic.');
-INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackText) VALUES (3, 1, TO_DATE('2023-10-22', 'YYYY-MM-DD'), TO_TIMESTAMP('18:15:00', 'HH24:MI:SS'), 'It tasted kind of bland.');
-INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackText) VALUES (4, 1, TO_DATE('2023-10-23', 'YYYY-MM-DD'), TO_TIMESTAMP('12:20:00', 'HH24:MI:SS'), 'The grocery list was very helpful.');
-INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackText) VALUES (5, 1, TO_DATE('2023-10-24', 'YYYY-MM-DD'), TO_TIMESTAMP('15:55:00', 'HH24:MI:SS'), 'The Chicken Stir-Fry was amazing.');
+INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackComment) VALUES (1, 1, TO_DATE('2023-10-20', 'YYYY-MM-DD'), TO_TIMESTAMP('14:30:00', 'HH24:MI:SS'), 'Great recipe! I loved it.');
+INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackComment) VALUES (2, 1, TO_DATE('2023-10-21', 'YYYY-MM-DD'), TO_TIMESTAMP('09:45:00', 'HH24:MI:SS'), 'This meal plan is fantastic.');
+INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackComment) VALUES (3, 1, TO_DATE('2023-10-22', 'YYYY-MM-DD'), TO_TIMESTAMP('18:15:00', 'HH24:MI:SS'), 'It tasted kind of bland.');
+INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackComment) VALUES (4, 1, TO_DATE('2023-10-23', 'YYYY-MM-DD'), TO_TIMESTAMP('12:20:00', 'HH24:MI:SS'), 'The grocery list was very helpful.');
+INSERT INTO Comments (feedbackID, userID, feedbackDate, feedbackTime, feedbackComment) VALUES (5, 1, TO_DATE('2023-10-24', 'YYYY-MM-DD'), TO_TIMESTAMP('15:55:00', 'HH24:MI:SS'), 'The Chicken Stir-Fry was amazing.');
 
-INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackNumber) VALUES (6, 1, TO_DATE('2023-10-20', 'YYYY-MM-DD'), TO_TIMESTAMP('14:30:00', 'HH24:MI:SS'), 5);
-INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackNumber) VALUES (7, 2, TO_DATE('2023-10-21', 'YYYY-MM-DD'), TO_TIMESTAMP('09:45:00', 'HH24:MI:SS'), 4);
-INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackNumber) VALUES (8, 1, TO_DATE('2023-10-22', 'YYYY-MM-DD'), TO_TIMESTAMP('18:15:00', 'HH24:MI:SS'), 3);
-INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackNumber) VALUES (9, 2, TO_DATE('2023-10-23', 'YYYY-MM-DD'), TO_TIMESTAMP('12:20:00', 'HH24:MI:SS'), 4);
-INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackNumber) VALUES (10, 1, TO_DATE('2023-10-24', 'YYYY-MM-DD'), TO_TIMESTAMP('15:55:00', 'HH24:MI:SS'), 5);
+INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackRating) VALUES (6, 1, TO_DATE('2023-10-20', 'YYYY-MM-DD'), TO_TIMESTAMP('14:30:00', 'HH24:MI:SS'), 5);
+INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackRating) VALUES (7, 2, TO_DATE('2023-10-21', 'YYYY-MM-DD'), TO_TIMESTAMP('09:45:00', 'HH24:MI:SS'), 4);
+INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackRating) VALUES (8, 1, TO_DATE('2023-10-22', 'YYYY-MM-DD'), TO_TIMESTAMP('18:15:00', 'HH24:MI:SS'), 3);
+INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackRating) VALUES (9, 2, TO_DATE('2023-10-23', 'YYYY-MM-DD'), TO_TIMESTAMP('12:20:00', 'HH24:MI:SS'), 4);
+INSERT INTO Rating (feedbackID, userID, feedbackDate, feedbackTime, feedbackRating) VALUES (10, 1, TO_DATE('2023-10-24', 'YYYY-MM-DD'), TO_TIMESTAMP('15:55:00', 'HH24:MI:SS'), 5);
+
+INSERT INTO Feedback (feedbackID, versionID, recipeID, userID, feedbackComment, feedbackRating, feedbackDate) VALUES (1, 1, 2, 1, 'Great recipe! I loved it.', 5, TO_DATE('2023-10-24', 'YYYY-MM-DD'));
+INSERT INTO Feedback (feedbackID, versionID, recipeID, userID, feedbackComment, feedbackRating, feedbackDate) VALUES (2, 2, 2, 1, 'This meal plan was alright.', 3, TO_DATE('2023-10-24', 'YYYY-MM-DD'));
+INSERT INTO Feedback (feedbackID, versionID, recipeID, userID, feedbackComment, feedbackRating, feedbackDate) VALUES (3, 6, 3, 1, 'It tasted kind of bland.', 1, TO_DATE('2023-10-24', 'YYYY-MM-DD'));
+INSERT INTO Feedback (feedbackID, versionID, recipeID, userID, feedbackComment, feedbackRating, feedbackDate) VALUES (4, 6, 3, 1, 'Much improved version!', 4, TO_DATE('2023-10-24', 'YYYY-MM-DD'));
+INSERT INTO Feedback (feedbackID, versionID, recipeID, userID, feedbackComment, feedbackRating, feedbackDate) VALUES (5, 6, 3, 1, 'Would love to see a spicier version.', 4, TO_DATE('2023-10-24', 'YYYY-MM-DD'));
 
 INSERT INTO Contains (grocerylistID, ingredientName, quantity) VALUES (1, 'Chicken', 1);
 INSERT INTO Contains (grocerylistID, ingredientName, quantity) VALUES (1, 'Broccoli', 2);

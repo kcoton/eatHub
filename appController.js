@@ -41,12 +41,52 @@ router.post("/insert-samples", async (req, res) => {
 
 /** CRUD ENDPOINTS */
 
-// get table data with table name param using GET request
+// get table data with tableName param using GET request
 router.get('/get-table/:tableName', async (req, res) => {
     const tableName = req.params.tableName.toUpperCase();
     const tableContent = await appService.getTable(tableName);
     res.json({ data: tableContent });
 });
 
+// get table data with tableName and userId param using GET request
+router.get('/get-table/:tableName/:userId', async (req, res) => {
+    const tableName = req.params.tableName.toUpperCase();
+    const userId = req.params.userId;
+    const tableContent = await appService.getTable(tableName, userId);
+    res.json({ data: tableContent });
+});
+
+// insert new user into UserInfo using POST request
+router.post('/insert-user', async (req, res) => {
+    const { userId, userType, email, name, birthday, weight, height } = req.body;
+    const insertResult = await appService.insertUser(userId, userType, email, name, birthday, weight, height);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// insert new meal into Meal using POST request
+router.post('/insert-meal', async (req, res) => {
+    const { mealId, mealPlanId, mealName, mealCategory, mealDay } = req.body;
+    const insertResult = await appService.insertMeal(mealId, mealPlanId, mealName, mealCategory, mealDay);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// delete existing recipe in Recipe using DELETE request
+router.delete('/delete-recipe', async (req, res) => {
+    const { recipeId } = req.body;
+    const deleteResult = await appService.deleteRecipe(recipeId);
+    if (deleteResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 module.exports = router;
