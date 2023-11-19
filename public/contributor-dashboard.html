@@ -16,7 +16,7 @@
     <h3>Contributor Dashboard</h3>
     <a class="active" href="#home">Home</a>
     <a href="#insert-meal">Insert Meal</a>
-    <a href="#contact">Contact</a>
+    <a href="#delete-recipe">Delete Recipe</a>
     <a href="#about">About</a>
     <a href="/">Logout</a>
 </div>
@@ -78,6 +78,15 @@
             
             <br><button type="submit">Insert</button>
             <br><div id="insertMealResult"></div>
+        </form>
+    </section>
+
+    <section id="recipe">
+        <h2 id="delete-recipe">Delete Existing Recipe</h2>
+        <form id="deleteRecipe" class="delete-recipe">
+            RecipeID: <input text type="number" id="deleteRecipeId" placeholder="Enter RecipeID" required>
+            <br><button type="submit">Delete</button>
+            <br><div id="deleteRecipeResult"></div>
         </form>
     </section>
 

@@ -78,4 +78,15 @@ router.post('/insert-meal', async (req, res) => {
     }
 });
 
+// delete existing recipe in Recipe using DELETE request
+router.delete('/delete-recipe', async (req, res) => {
+    const { recipeId } = req.body;
+    const deleteResult = await appService.deleteRecipe(recipeId);
+    if (deleteResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;

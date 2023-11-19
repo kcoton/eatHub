@@ -103,6 +103,33 @@ async function insertMeal(event) {
 }
 
 
+// Deletes existing recipe in the Recipe table.
+async function deleteRecipe(event) {
+    event.preventDefault();
+
+    const recipeId = document.getElementById('deleteRecipeId').value;
+
+    const response = await fetch('/delete-recipe', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            recipeId: recipeId
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('deleteRecipeResult');
+
+    if (responseData.success) {
+        messageElement.textContent = "Recipe deleted successfully!";
+    } else {
+        messageElement.textContent = "Error deleting recipe!";
+    }
+}
+
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -111,4 +138,5 @@ window.onload = function() {
 
     document.getElementById("welcome").textContent = `Welcome, Contributor! (UserId = ${userId})`;
     document.getElementById("insertMeal").addEventListener("submit", insertMeal);
+    document.getElementById("deleteRecipe").addEventListener("submit", deleteRecipe);
 };

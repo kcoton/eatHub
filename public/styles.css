@@ -149,7 +149,7 @@ form.insert-user {
     grid-template-columns: 20% 50%;
 }
 
-form.insert-meal {
+form.insert-meal, form.delete-recipe {
     display: grid;
     grid-template-columns: 10% 30%;
 }

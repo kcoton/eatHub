@@ -136,7 +136,6 @@ async function insertUser(userId, userType, email, name, birthday, weight, heigh
             [userId, userType, email, name, birthday, weight, height],
             { autoCommit: true }
         );
-
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -152,13 +151,25 @@ async function insertMeal(mealId, mealPlanId, mealName, mealCategory, mealDay) {
             [mealId, mealPlanId, mealName, mealCategory, mealDay],
             { autoCommit: true }
         );
-
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
     });
 }
 
+// DELETE: deletes a recipe in Recipe
+async function deleteRecipe(recipeId) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM RECIPE WHERE recipeId = :recipeId`,
+            [recipeId],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
 
 module.exports = {
     testOracleConnection,
@@ -166,5 +177,6 @@ module.exports = {
     insertSamples,
     getTable,
     insertUser,
-    insertMeal
+    insertMeal,
+    deleteRecipe
 };
