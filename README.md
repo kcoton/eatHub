@@ -24,16 +24,16 @@
 ## Tasks for Core Functionalities
 | Item | Demo | Owner | 
 |-|-|-|
-| Insert | Insert Meal (foreign key is mealPlanID) | Eric |
-| Delete | Delete Recipe (cacade to delete Versions) | Eric |
-| Update | Modify Feedback (date/time are 2 non-primary keys. Will have a "versionID" to choose as foreign key) | Eric |
-| Selection | Query Versions' by calories / name / categories | Eric |
-| Projection | | Kiara |
-| Join | Version/Feedback versions with at least 1 feedback | Kiara |
-| Aggregation - Group By | Count of feedback / versions by users | Kiara |
-| Aggregation - Having | Versions of any recipes having rating > certain score | Justin |
-| Nested Aggregation | | Justin |
-| Division | Find all recipes that have specific ingredient(s) | Justin |
+| [x] Insert | Insert Meal (foreign key is mealPlanID) | Eric |
+| [x] Delete | Delete Recipe (cacade to delete Versions) | Eric |
+| [] Update | Modify Feedback (date/time are 2 non-primary keys. Will have a "versionID" to choose as foreign key) | Eric |
+| [] Selection | Query Versions' by calories / name / categories | Eric |
+| [] Projection | | Kiara |
+| [] Join | Version/Feedback versions with at least 1 feedback | Kiara |
+| [] Aggregation - Group By | Count of feedback / versions by users | Kiara |
+| [] Aggregation - Having | Versions of any recipes having rating > certain score | Justin |
+| [] Nested Aggregation | | Justin |
+| [] Division | Find all recipes that have specific ingredient(s) | Justin |
 
 ## Challenges
 n/a
