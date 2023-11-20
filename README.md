@@ -29,7 +29,7 @@
 | [x] Update | Update Feedback (versionID, feedbackComment, feedbackRating are non-primary keys. Foreign key is versionID) | Eric |
 | [x] Selection | Select Recipe using OR for recipeCategory | Eric |
 | [] Projection | | Kiara |
-| [] Join | Version/Feedback versions with at least 1 feedback | Kiara |
+| [in progress] Join | Join Version, Feedback, Recipe. Filter for feedbackRating > X | Kiara |
 | [] Aggregation - Group By | Count of feedback / versions by users | Kiara |
 | [] Aggregation - Having | Versions of any recipes having rating > certain score | Justin |
 | [] Nested Aggregation | | Justin |

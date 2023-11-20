@@ -2,26 +2,42 @@
  * Contains functionalities for admin dashboard
  */
 
-// Fetches data from the UserInfo table and displays it.
-async function fetchAndDisplayUsers() {
-    const tableElement = document.getElementById('userTable');
+
+// To standardize tableId and tableName
+const TABLE = {
+    USERINFO: { id: 'userTable', name: 'userinfo' },
+    FEEDBACK: { id: 'feedbackTable', name: 'feedback' }
+}
+
+// Fetches data from all tables and displays it.
+async function fetchAndDisplayAllTables() {
+    fetchAndDisplayTable(TABLE.USERINFO.id, TABLE.USERINFO.name);
+}
+
+
+// Fetches data from table (optional param: userId) and displays it.
+async function fetchAndDisplayTable(tableId, tableName, userId) {
+    const tableElement = document.getElementById(`${tableId}`);
     const tableBody = tableElement.querySelector('tbody');
 
-    const response = await fetch('/get-table/userinfo', {
-        method: 'GET'
-    });
+    let query = `/get-table/${tableName}`;
+    if (!!userId) {
+        query = query.concat(`/${userId}`);
+    }
 
+    const response = await fetch(query, { method: 'GET' });
+    
     const responseData = await response.json();
-    const userTableContent = responseData.data;
+    const tableContent = responseData.data;
 
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
     }
 
-    userTableContent.forEach(user => {
+    tableContent.forEach(tuple => {
         const row = tableBody.insertRow();
-        user.forEach((field, index) => {
+        tuple.forEach((field, index) => {
             const cell = row.insertCell(index);
             cell.textContent = field;
         });
@@ -34,7 +50,6 @@ async function insertUser(event) {
     event.preventDefault();
 
     const userId = document.getElementById('insertId').value;
-    // const userType = document.getElementById('insertName').value; 
     const userType = '2'; // only new contributor
     const email = document.getElementById('insertEmail').value;
     const name = document.getElementById('insertName').value;
@@ -63,7 +78,7 @@ async function insertUser(event) {
 
     if (responseData.success) {
         messageElement.textContent = "User inserted successfully!";
-        fetchAndDisplayUsers();
+        fetchAndDisplayTable(TABLE.USERINFO.id, TABLE.USERINFO.name);
     } else {
         messageElement.textContent = "Error inserting user!";
     }
@@ -74,7 +89,7 @@ async function insertUser(event) {
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
 window.onload = function() {
-    fetchAndDisplayUsers();
+    fetchAndDisplayAllTables();
 
     document.getElementById("insertUser").addEventListener("submit", insertUser);
 };
