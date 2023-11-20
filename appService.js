@@ -171,6 +171,25 @@ async function deleteRecipe(recipeId) {
     });
 }
 
+// UPDATE: updates feedback in Feedback
+async function updateFeedback(versionId, feedbackComment, feedbackRating, feedbackId) {
+    return await withOracleDB(async (connection) => {
+        const query = 
+            `UPDATE FEEDBACK 
+            SET versionId = :versionId, feedbackComment = :feedbackComment, feedbackRating = :feedbackRating 
+            WHERE feedbackId = :feedbackId`;
+        const result = await connection.execute(
+            query,
+            [versionId, feedbackComment, feedbackRating, feedbackId],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+
 module.exports = {
     testOracleConnection,
     createTables,
@@ -178,5 +197,6 @@ module.exports = {
     getTable,
     insertUser,
     insertMeal,
-    deleteRecipe
+    deleteRecipe,
+    updateFeedback
 };

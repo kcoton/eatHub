@@ -62,7 +62,7 @@ button:active {
 }
 
 /* INPUT STYLES */
-input, textarea {
+input, textarea, select {
     width: 100%;
     padding: 10px 15px;
     font-size: 16px;
@@ -146,5 +146,5 @@ div.content {
 /* FORM STYLE */
 form {
     display: grid;
-    grid-template-columns: 10% 30%;
+    grid-template-columns: 0.15fr 0.25fr;
 }
