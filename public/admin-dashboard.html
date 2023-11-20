@@ -16,7 +16,7 @@
     <h3>Admin Dashboard</h3>
     <a class="active" href="#home">Home</a>
     <a href="#manage-users">Manage Users</a>
-    <a href="#contact">Contact</a>
+    <a href="#feedback-rating">Join for Rating</a>
     <a href="#about">About</a>
     <a href="/">Logout</a>
 </div>
@@ -37,22 +37,24 @@
 
     <section id="manage-users">
         <h2>View All Users</h2>
-        <table id="userTable" border="1">
-            <thead>
-                <tr>
-                    <!--Table head, need to be adjusted accordingly to align with your own.-->
-                    <th>USERID</th>
-                    <th>USERTYPE</th>
-                    <th>EMAIL</th>
-                    <th>NAME</th>
-                    <th>BIRTHDAY</th>
-                    <th>WEIGHT</th>
-                    <th>HEIGHT</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="table-scroll">
+            <table id="userTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>USERID</th>
+                        <th>USERTYPE</th>
+                        <th>EMAIL</th>
+                        <th>NAME</th>
+                        <th>BIRTHDAY</th>
+                        <th>WEIGHT</th>
+                        <th>HEIGHT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
 
         <h2>Insert New User</h2>
         <form id="insertUser" class="insert-user">
@@ -66,6 +68,27 @@
             <br><button type="submit">Insert</button>
             <br><div id="insertUserResult"></div>
         </form>
+    </section>
+
+    <section id="feedback-rating">
+        <h2>Join for Rating</h2>
+        <p>Joins Feedback, Version, and Recipe table to filter for feedbackRating > X.</p>
+        <div class="table-scroll">
+            <table id="feedbackTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>RECIPENAME</th>
+                        <th>FEEDBACKCOMMENT</th>
+                        <th>FEEDBACKRATING</th>
+                        <th>INSTRUCTIONS</th>
+                        <th>CALORIES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </section>
 
 </div>

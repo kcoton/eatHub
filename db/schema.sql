@@ -60,8 +60,8 @@ CREATE TABLE Recipe (
 );
 
 CREATE TABLE Version (
-	recipeID		INTEGER,
 	versionID		INTEGER,
+	recipeID		INTEGER,
 	instructions	VARCHAR(2000),
 	versionDate	    DATE	NOT NULL,
 	versionServing	INTEGER,
