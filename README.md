@@ -27,7 +27,7 @@
 | [x] Insert | Insert Meal (foreign key is mealPlanID) | Eric |
 | [x] Delete | Delete Recipe (cacade to delete Versions) | Eric |
 | [x] Update | Update Feedback (versionID, feedbackComment, feedbackRating are non-primary keys. Foreign key is versionID) | Eric |
-| [] Selection | Query Versions' by calories / name / categories | Eric |
+| [x] Selection | Select Recipe using OR for recipeCategory | Eric |
 | [] Projection | | Kiara |
 | [] Join | Version/Feedback versions with at least 1 feedback | Kiara |
 | [] Aggregation - Group By | Count of feedback / versions by users | Kiara |

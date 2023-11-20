@@ -16,6 +16,7 @@
     <h3>Contributor Dashboard</h3>
     <a class="active" href="#home">Home</a>
     <a href="#insert-meal">Insert Meal</a>
+    <a href="#select-recipe">Select Recipe</a>
     <a href="#delete-recipe">Delete Recipe</a>
     <a href="#update-feedback">Update Feedback</a>
     <a href="/">Logout</a>
@@ -38,20 +39,22 @@
 
     <section id="mealplan">
         <h2>View All Meals</h2>
-        <table id="mealTable" border="1">
-            <thead>
-                <tr>
-                    <!--Table head, need to be adjusted accordingly to align with your own.-->
-                    <th>MEALID</th>
-                    <th>MEALPLANID</th>
-                    <th>MEALNAME</th>
-                    <th>MEALCATEGORY</th>
-                    <th>MEALDAY</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="table-scroll">
+            <table id="mealTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>MEALID</th>
+                        <th>MEALPLANID</th>
+                        <th>MEALNAME</th>
+                        <th>MEALCATEGORY</th>
+                        <th>MEALDAY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
 
         <h2 id="insert-meal">Insert New Meal</h2>
         <form id="insertMeal" class="insert-meal">
@@ -67,6 +70,29 @@
     </section>
 
     <section id="recipe">
+        <h2 id="select-recipe">Select Existing Recipe by Category</h2>
+        <p>Table will show all recipes containing a selected category (i.e. Asian OR Italian). If no category is selected, all recipes will be shown.</p>
+        <form id="selectRecipe" class="select-recipe">
+            Category: <select name="selectRecipeCategory" id="selectRecipeCategory" multiple></select>
+            <br><button type="submit">Select</button>
+            <br><div id="selectRecipeResult"></div>
+        </form>
+        
+        <div class="table-scroll">
+            <table id="recipeTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>RECIPEID</th>
+                        <th>RECIPENAME</th>
+                        <th>RECIPECATEGORY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
         <h2 id="delete-recipe">Delete Existing Recipe</h2>
         <form id="deleteRecipe" class="delete-recipe">
             RecipeID: <input text type="number" id="deleteRecipeId" placeholder="Enter RecipeID" required>
@@ -77,22 +103,24 @@
 
     <section id="feedback">
         <h2>View All User Feedback</h2>
-        <table id="feedbackTable" border="1">
-            <thead>
-                <tr>
-                    <!--Table head, need to be adjusted accordingly to align with your own.-->
-                    <th>FEEDBACKID</th>
-                    <th>VERSIONID</th>
-                    <th>RECIPEID</th>
-                    <th>USERID</th>
-                    <th>FEEDBACKCOMMENT</th>
-                    <th>FEEDBACKRATING</th>
-                    <th>FEEDBACKDATE</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="table-scroll">
+            <table id="feedbackTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>FEEDBACKID</th>
+                        <th>VERSIONID</th>
+                        <th>RECIPEID</th>
+                        <th>USERID</th>
+                        <th>FEEDBACKCOMMENT</th>
+                        <th>FEEDBACKRATING</th>
+                        <th>FEEDBACKDATE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
 
         <h2 id="update-feedback">Update Existing Feedback</h2>
         <form id="updateFeedback" class="update-feedback">
