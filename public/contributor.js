@@ -115,6 +115,7 @@ async function deleteRecipe(event) {
     const messageElement = document.getElementById('deleteRecipeResult');
 
     if (responseData.success) {
+        fetchAndDisplayTable(TABLE.RECIPE.id, TABLE.RECIPE.name);
         messageElement.textContent = "Recipe deleted successfully!";
     } else {
         messageElement.textContent = "Error deleting recipe!";
