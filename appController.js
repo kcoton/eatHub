@@ -100,4 +100,19 @@ router.put('/update-feedback', async (req, res) => {
     }
 });
 
+// get existing recipe with recipeCategory param in Recipe using GET request
+router.get('/get-recipe', async (req, res) => {
+    const recipeCategories = req.query.recipeCategory;
+    let recipeCategory = null; 
+    if (recipeCategories) {
+        recipeCategory = recipeCategories.split(',');
+    }
+    const tableContent = await appService.getRecipe(recipeCategory);
+    if (tableContent) {
+        res.json({ success: true, data: tableContent });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;

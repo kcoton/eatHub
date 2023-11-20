@@ -49,7 +49,7 @@ INSERT INTO UserBMI (weight, height, BMI) VALUES (175, 178, 55.3);
 INSERT INTO UserBMI (weight, height, BMI) VALUES (155, 165, 38.2);
 INSERT INTO UserBMI (weight, height, BMI) VALUES (140, 162, 26.7);
 
-INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (1, 'Spaghetti Bolognese', 'Pasta');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (1, 'Spaghetti Bolognese', 'Italian');
 INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (2, 'Chicken Stir-Fry', 'Asian');
 INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (3, 'Caprese Salad', 'Salad');
 INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (4, 'Beef Tacos', 'Mexican');
@@ -64,6 +64,25 @@ INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (12, 'Dim Sum P
 INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (13, 'Miso Soup', 'Asian');
 INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (14, 'Chilli Chicken', 'Asian');
 INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (15, 'Beef and Broccoli Stir-Fry', 'Asian');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (16, 'Chocolate Fudge Cake', 'Dessert');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (17, 'Apple Pie', 'Dessert');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (18, 'Cheesecake', 'Dessert');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (19, 'Tiramisu', 'Dessert');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (20, 'Lemon Tart', 'Dessert');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (21, 'Grilled Salmon', 'Seafood');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (22, 'Shrimp Scampi', 'Seafood');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (23, 'Fish Tacos', 'Seafood');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (24, 'Lobster Bisque', 'Seafood');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (25, 'Crab Cakes', 'Seafood');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (26, 'Vegetable Stir-Fry', 'Vegetarian');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (27, 'Mushroom Stroganoff', 'Vegetarian');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (28, 'Eggplant Parmesan', 'Vegetarian');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (29, 'Veggie Burger', 'Vegetarian');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (30, 'Spinach and Ricotta Lasagna', 'Vegetarian');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (31, 'Chicken Enchiladas', 'Mexican');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (32, 'Caesar Salad', 'Salad');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (33, 'Greek Salad', 'Salad');
+INSERT INTO Recipe (recipeID, recipeName, recipeCategory) VALUES (34, 'Quinoa Salad', 'Salad');
 
 INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (2, 1, 'Heat oil in a wok. Add chicken and stir-fry for 5 minutes. Add vegetables and sauce. Stir-fry for an additional 3 minutes.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 350);
 INSERT INTO Version (recipeID, versionID, instructions, versionDate, versionServing, calories) VALUES (2, 2, 'Marinate chicken in soy sauce and garlic for 30 minutes before stir-frying. Add broccoli and peppers for added flavor.', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 4, 370);
