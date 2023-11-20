@@ -17,7 +17,7 @@
     <a class="active" href="#home">Home</a>
     <a href="#insert-meal">Insert Meal</a>
     <a href="#delete-recipe">Delete Recipe</a>
-    <a href="#about">About</a>
+    <a href="#update-feedback">Update Feedback</a>
     <a href="/">Logout</a>
 </div>
 
@@ -37,21 +37,6 @@
     <hr><!-- ========================================================================= -->
 
     <section id="mealplan">
-        <h2>View All Meal Plans</h2>
-        <table id="mealPlanTable" border="1">
-            <thead>
-                <tr>
-                    <!--Table head, need to be adjusted accordingly to align with your own.-->
-                    <th>MEALPLANID</th>
-                    <th>USERID</th>
-                    <th>MEALPLANNAME</th>
-                    <th>MEALPLANCATEGORY</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
         <h2>View All Meals</h2>
         <table id="mealTable" border="1">
             <thead>
@@ -87,6 +72,36 @@
             RecipeID: <input text type="number" id="deleteRecipeId" placeholder="Enter RecipeID" required>
             <br><button type="submit">Delete</button>
             <br><div id="deleteRecipeResult"></div>
+        </form>
+    </section>
+
+    <section id="feedback">
+        <h2>View All User Feedback</h2>
+        <table id="feedbackTable" border="1">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>FEEDBACKID</th>
+                    <th>VERSIONID</th>
+                    <th>RECIPEID</th>
+                    <th>USERID</th>
+                    <th>FEEDBACKCOMMENT</th>
+                    <th>FEEDBACKRATING</th>
+                    <th>FEEDBACKDATE</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <h2 id="update-feedback">Update Existing Feedback</h2>
+        <form id="updateFeedback" class="update-feedback">
+            FeedbackID: <select name="selectFeedbackId" id="selectFeedbackId" required></select>
+            VersionID: <input text type="number" id="updateVersionId" placeholder="Enter VersionID" required>
+            Comment: <textarea type="text" id="updateComment" placeholder="Enter Comment" required></textarea>
+            Rating (0-5): <input text type="number" id="updateRating" placeholder="Enter Rating" min="0" max="5" required>
+            <br><button type="submit">Update</button>
+            <br><div id="updateFeedbackResult"></div>
         </form>
     </section>
 

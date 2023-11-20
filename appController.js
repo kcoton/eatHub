@@ -89,4 +89,15 @@ router.delete('/delete-recipe', async (req, res) => {
     }
 });
 
+// update existing feedback in Feedback using UPDATE request
+router.put('/update-feedback', async (req, res) => {
+    const { versionId, feedbackComment, feedbackRating, feedbackId } = req.body;
+    const updateResult = await appService.updateFeedback(versionId, feedbackComment, feedbackRating, feedbackId);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;
