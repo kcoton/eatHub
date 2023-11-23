@@ -16,6 +16,7 @@
     <h3>Admin Dashboard</h3>
     <a class="active" href="#home">Home</a>
     <a href="#manage-users">Manage Users</a>
+    <a href="#feedback-rating">Join for Rating</a>
     <a href="#query-data">Query Data</a> <!-- projection -->    
     <a href="#contact">Contact</a>
     <a href="#about">About</a>
@@ -39,7 +40,6 @@
     <div id="tableContainer"></div>
 
     <section id="manage-users">
-
         <h2>Insert New User</h2>
         <form id="insertUser" class="insert-user">
             ID: <input text type="number" id="insertId" placeholder="Enter ID" required>
@@ -52,6 +52,27 @@
             <br><button type="submit">Insert</button>
             <br><div id="insertUserResult"></div>
         </form>
+    </section>
+
+    <section id="feedback-rating">
+        <h2>Join for Rating</h2>
+        <p>Joins Feedback, Version, and Recipe table to filter for feedbackRating > X.</p>
+        <div class="table-scroll">
+            <table id="feedbackTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>RECIPENAME</th>
+                        <th>FEEDBACKCOMMENT</th>
+                        <th>FEEDBACKRATING</th>
+                        <th>INSTRUCTIONS</th>
+                        <th>CALORIES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <section id="query-data">

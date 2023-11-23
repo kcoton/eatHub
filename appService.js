@@ -109,7 +109,7 @@ async function insertSamples(){
 }
 
 
-/** GET, POST, UPDATE, DELETE TO DB */
+/** GET, POST, PUT, UPDATE, DELETE TO DB */
 
 
 // GET: returns all rows in a table OR all rows containing a userId
@@ -123,6 +123,26 @@ async function getTable(tableName, userId = null) {
         return result.rows;
     }).catch((e) => {
         console.log("Error at getTable", e);
+        return [];
+    });
+}
+
+// GET: returns all rows in Recipe (optional param: recipeCategory)
+async function getRecipe(recipeCategory) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT * FROM RECIPE`;
+        if (!!recipeCategory) {
+            recipeCategory.forEach((category, i) => {
+                if (i == 0) {
+                    query = query.concat(` WHERE recipeCategory = '${category}'`);
+                } else query = query.concat(` OR recipeCategory = '${category}'`);
+                
+            })
+        }
+        const result = await connection.execute(query);
+        return result.rows;
+    }).catch((e) => {
+        console.log("Error at getRecipe", e);
         return [];
     });
 }
@@ -183,6 +203,23 @@ async function deleteRecipe(recipeId) {
     });
 }
 
+// UPDATE: updates feedback in Feedback
+async function updateFeedback(versionId, feedbackComment, feedbackRating, feedbackId) {
+    return await withOracleDB(async (connection) => {
+        const query = 
+            `UPDATE FEEDBACK 
+            SET versionId = :versionId, feedbackComment = :feedbackComment, feedbackRating = :feedbackRating 
+            WHERE feedbackId = :feedbackId`;
+        const result = await connection.execute(
+            query,
+            [versionId, feedbackComment, feedbackRating, feedbackId],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
 
 // PROJECTION
 async function queryTable(tableName,columns) {
@@ -196,14 +233,17 @@ async function queryTable(tableName,columns) {
     });
 }
 
+
 module.exports = {
     testOracleConnection,
     createTables,
     insertSamples,
     getTable,
+    getRecipe,
     insertUser,
     insertMeal,
     deleteRecipe,
+    updateFeedback,
     queryTable,
     getTableWithHeader
 };

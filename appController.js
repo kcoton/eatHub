@@ -89,12 +89,39 @@ router.delete('/delete-recipe', async (req, res) => {
     }
 });
 
+// update existing feedback in Feedback using UPDATE request
+router.put('/update-feedback', async (req, res) => {
+    const { versionId, feedbackComment, feedbackRating, feedbackId } = req.body;
+    const updateResult = await appService.updateFeedback(versionId, feedbackComment, feedbackRating, feedbackId);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// get existing recipe with recipeCategory param in Recipe using GET request
+router.get('/get-recipe', async (req, res) => {
+    const recipeCategories = req.query.recipeCategory;
+    let recipeCategory = null; 
+    if (recipeCategories) {
+        recipeCategory = recipeCategories.split(',');
+    }
+    const tableContent = await appService.getRecipe(recipeCategory);
+    if (tableContent) {
+        res.json({ success: true, data: tableContent });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 // get table data with tableName and fields param using GET request
 router.get('/query-dataset/:tableName/:fields', async (req, res) => {
     const tableName = req.params.tableName.toUpperCase();
     const fields = req.params.fields;
     const tableContent = await appService.queryTable(tableName, fields);
     res.json({ data: tableContent });
+
 });
 
 module.exports = router;
