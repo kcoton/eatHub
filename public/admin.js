@@ -4,30 +4,66 @@
 
 // Fetches data from the UserInfo table and displays it.
 async function fetchAndDisplayUsers() {
-    const tableElement = document.getElementById('userTable');
-    const tableBody = tableElement.querySelector('tbody');
-
-    const response = await fetch('/get-table/userinfo', {
+    fetch('/query-dataset/userinfo/*', {
         method: 'GET'
-    });
-
-    const responseData = await response.json();
-    const userTableContent = responseData.data;
-
-    // Always clear old, already fetched data before new fetching process.
-    if (tableBody) {
-        tableBody.innerHTML = '';
-    }
-
-    userTableContent.forEach(user => {
-        const row = tableBody.insertRow();
-        user.forEach((field, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = field;
-        });
-    });
+    }).then(response => response.json())
+    .then((data) => {
+        renderTable("View All users", data);
+    }).catch((err) => {
+        console.log(err);
+    })
 }
 
+
+// Fetches data from the UserInfo table and displays it.
+async function renderTable(header, dataJson) {
+    try {
+        const tableContainer = document.getElementById('tableContainer');
+        // reset
+        tableContainer.innerHTML = '';
+
+        // header text
+        const headerText = document.createElement('h2');
+        headerText.textContent = header;
+
+        // create table
+        const table = jsonToHtmlTable(dataJson);
+
+        // append
+        tableContainer.appendChild(headerText);
+        tableContainer.appendChild(table);
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+function jsonToHtmlTable(dataJson) {
+	const table = document.createElement('table');
+	table.classList.add('table');
+	const header = table.createTHead();
+	const body = table.createTBody();
+
+	// Create table header row
+    const headerRow = header.insertRow();
+	console.log(dataJson)
+    dataJson.data.metaData.forEach(elem => {
+		const th = document.createElement('th');
+		th.textContent = elem.name;
+		headerRow.appendChild(th);
+	});
+
+	// Populate table body
+	dataJson.data.rows.forEach(item => {
+		const row = body.insertRow();
+		Object.values(item).forEach(value => {
+			const cell = row.insertCell();
+			cell.textContent = value.length > 50 ? value.substring(0, 50) + '...' : value;
+		});
+	});
+
+	return table;
+}
 
 // Inserts new user into the UserInfo table.
 async function insertUser(event) {
@@ -69,12 +105,75 @@ async function insertUser(event) {
     }
 }
 
+let columns = new Set();
+let table = "";
+
+function clearQuery() {
+    const currentColumns = document.getElementById('currentColumns');
+    const currentTable = document.getElementById('currentTable');
+
+    columns = new Set();
+    table = "";
+    currentColumns.textContent = `Column cleared`;
+    currentTable.textContent = `Table cleared`;
+}
+
+function addColumn() {
+    const currentColumns = document.getElementById('currentColumns');
+    const newColumn = document.getElementById('columnInput');
+    if (newColumn.value.length > 0) {
+        try {
+            columns.add(newColumn.value.trim());
+            currentColumns.textContent = `Column added: ${Array.from(columns).join(', ')}`;
+        } catch (err) {
+            console.log(err);
+            currentColumns.textContent = "Error adding column";
+        }
+    } else {
+        currentColumns.textContent = `Column added: ${Array.from(columns).join(', ')}`;
+    }
+}
+
+function setTable() {
+    const currentTable = document.getElementById('currentTable');
+    const newTable = document.getElementById('tableInput');
+    try {
+        table = newTable.value.trim();
+        currentTable.textContent = `Table set: ${table}`;
+    } catch (err) {
+        console.log(err);
+        currentTable.textContent = "Error adding column";
+    }
+}
+
+async function submitQuery() {
+    const messageElement = document.getElementById('currentTable');
+
+    fetch(`/query-dataset/${table}/${Array.from(columns).join(', ')}`, {
+        method: 'GET'
+    }).then(response => response.json())
+    .then(async (data) => {
+        let worked = await renderTable("View All users", data)
+        if (worked) {
+            messageElement.textContent = "Query Complete!";
+        } else {
+            messageElement.textContent = "Query Failed!";
+        }
+        
+    }).catch((err) => {
+        console.log(err);
+        messageElement.textContent = "Error Querying!";
+    })
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
 window.onload = function() {
-    fetchAndDisplayUsers();
-
     document.getElementById("insertUser").addEventListener("submit", insertUser);
+    document.getElementById("clearQuery").addEventListener("click", clearQuery);
+    document.getElementById("addColumn").addEventListener("click", addColumn);
+    document.getElementById("setTable").addEventListener("click", setTable);
+    document.getElementById("submitQuery").addEventListener("click", submitQuery);
 };

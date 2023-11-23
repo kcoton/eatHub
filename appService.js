@@ -127,6 +127,18 @@ async function getTable(tableName, userId = null) {
     });
 }
 
+// GET: returns all rows in a table OR all rows containing a userId
+async function getTableWithHeader(tableName, userId = null) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT * FROM ${tableName}`;
+        const result = await connection.execute(query);
+        return result;
+    }).catch((e) => {
+        console.log("Error at getTable", e);
+        return [];
+    });
+}
+
 // POST: inserts a user into UserInfo
 async function insertUser(userId, userType, email, name, birthday, weight, height) {
     return await withOracleDB(async (connection) => {
@@ -171,6 +183,19 @@ async function deleteRecipe(recipeId) {
     });
 }
 
+
+// PROJECTION
+async function queryTable(tableName,columns) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT ${columns} FROM ${tableName}`;
+        const result = await connection.execute(query);
+        return result;
+    }).catch((e) => {
+        console.log("Error at queryTable", e);
+        return [];
+    });
+}
+
 module.exports = {
     testOracleConnection,
     createTables,
@@ -178,5 +203,7 @@ module.exports = {
     getTable,
     insertUser,
     insertMeal,
-    deleteRecipe
+    deleteRecipe,
+    queryTable,
+    getTableWithHeader
 };

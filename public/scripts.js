@@ -47,3 +47,5 @@ async function checkDbConnection() {
 window.onload = function() {
     checkDbConnection();
 };
+
+
