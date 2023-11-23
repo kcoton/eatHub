@@ -159,7 +159,7 @@ async function submitQuery() {
         } else {
             messageElement.textContent = "Query Failed!";
         }
-        
+
     }).catch((err) => {
         console.log(err);
         messageElement.textContent = "Error Querying!";
