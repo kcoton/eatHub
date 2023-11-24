@@ -233,6 +233,31 @@ async function queryTable(tableName,columns) {
     });
 }
 
+// Nested Query
+async function nestedQueryFeedback(age) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT R.recipeName,
+                            COUNT(F.feedbackRating) AS NumberOfRating,
+                            AVG(F.feedbackRating) AS AvgRating
+                    FROM FEEDBACK F, VERSION V, RECIPE R
+                    WHERE F.versionID = V.versionID AND
+                            F.recipeID = V.recipeID AND
+                            R.recipeID = V.RECIPEID AND
+                            F.userID IN (
+                                SELECT U.userID
+                                FROM USERINFO U, UserAge A
+                                WHERE A.birthday = U.birthday AND
+                                    A.age < ${age}
+                            )
+                    GROUP BY R.recipeName
+                    ORDER BY AvgRating DESC`;
+        const result = await connection.execute(query);
+        return result;
+    }).catch((e) => {
+        console.log("Error at queryTable", e);
+        return [];
+    });
+}
 
 module.exports = {
     testOracleConnection,
@@ -245,5 +270,6 @@ module.exports = {
     deleteRecipe,
     updateFeedback,
     queryTable,
-    getTableWithHeader
+    getTableWithHeader,
+    nestedQueryFeedback
 };

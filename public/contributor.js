@@ -242,6 +242,26 @@ async function selectRecipe(event) {
     }
 }
 
+async function nestedQueryFeedback() {
+    const messageElement = document.getElementById('nestedQueryFeedbackResult');
+    let age = document.getElementById('ageInput').value;
+
+    fetch(`/nested-query-dataset/${age}`, {
+        method: 'GET'
+    }).then(response => response.json()
+    ).then(async (data) => {
+        let worked = await renderTable(`User Age < ${age} years old`, data);
+        if (worked) {
+            messageElement.textContent = "Query Complete!";
+        } else {
+            messageElement.textContent = "Query Failed!";
+        }
+    }).catch((err) => {
+        console.log(err);
+        messageElement.textContent = "Error Querying!";
+    })
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -254,4 +274,5 @@ window.onload = function() {
     document.getElementById("deleteRecipe").addEventListener("submit", deleteRecipe);
     document.getElementById("updateFeedback").addEventListener("submit", updateFeedback);
     document.getElementById("selectRecipe").addEventListener("submit", selectRecipe);
+    document.getElementById("nestedQueryFeedback").addEventListener("click", nestedQueryFeedback);
 };

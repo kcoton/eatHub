@@ -19,6 +19,7 @@
     <a href="#select-recipe">Select Recipe</a>
     <a href="#delete-recipe">Delete Recipe</a>
     <a href="#update-feedback">Update Feedback</a>
+    <a href="#query-recipe">Query Feedback</a> <!-- Nested Aggregation-->
     <a href="/">Logout</a>
 </div>
 
@@ -130,6 +131,19 @@
             Rating (0-5): <input text type="number" id="updateRating" placeholder="Enter Rating" min="0" max="5" required>
             <br><button type="submit">Update</button>
             <br><div id="updateFeedbackResult"></div>
+        </form>
+    </section>
+
+    <section id="nested-query-feedback">
+        <h2 id="query-recipe">Average Rating by Age</h2>
+
+        <div id="resultContainer"></div>
+        <div class="table-scroll" id="tableContainer"></div>
+        
+        <form id="updateFeedback" class="update-feedback">
+            Maximum Age: <input text type="text" id="ageInput" placeholder="Enter Maximum Age" required>
+            <br><button type="button" id="nestedQueryFeedback">Query</button>
+            <br><div id="nestedQueryFeedbackResult"></div>
         </form>
     </section>
 

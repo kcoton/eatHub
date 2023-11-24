@@ -124,4 +124,10 @@ router.get('/query-dataset/:tableName/:fields', async (req, res) => {
 
 });
 
+// get table data with tableName and fields param using GET request
+router.get('/nested-query-dataset/:age', async (req, res) => {
+    const tableContent = await appService.nestedQueryFeedback(req.params.age);
+    res.json({ data: tableContent });
+});
+
 module.exports = router;
