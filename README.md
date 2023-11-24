@@ -28,7 +28,7 @@
 | [x] Delete | Delete Recipe (cacade to delete Versions) | Eric |
 | [x] Update | Update Feedback (versionID, feedbackComment, feedbackRating are non-primary keys. Foreign key is versionID) | Eric |
 | [x] Selection | Select Recipe using OR for recipeCategory | Eric |
-| [] Projection | | Kiara |
+| [x] Projection | Select any columns from any table as the admin | Kiara |
 | [in progress] Join | Join Version, Feedback, Recipe. Filter for feedbackRating > X | Kiara |
 | [] Aggregation - Group By | Count of feedback / versions by users | Kiara |
 | [] Aggregation - Having | Versions of any recipes having rating > certain score | Justin |
