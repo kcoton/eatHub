@@ -8,36 +8,13 @@ const TABLE = {
     FEEDBACK: { id: 'feedbackTable', name: 'feedback' }
 }
 
-// Fetches data from all tables and displays it.
-async function fetchAndDisplayAllTables() {
-    fetchAndDisplayTable(TABLE.USERINFO.id, TABLE.USERINFO.name);
-}
-
-
-// Fetches data from table (optional param: userId) and displays it.
-async function fetchAndDisplayTable(tableId, tableName, userId) {
-    const tableElement = document.getElementById(`${tableId}`);
-    const tableBody = tableElement.querySelector('tbody');
-
-    let query = `/get-table/${tableName}`;
-    if (!!userId) { 
-        query = query.concat(`/${userId}`);
-    }
-
-    const response = await fetch(query, { method: 'GET' });
-    
-    const responseData = await response.json();
-    const tableContent = responseData.data;
-
-}
-
 // Fetches data from the UserInfo table and displays it.
-async function fetchAndDisplayUsers() {
-    fetch('/query-dataset/userinfo/*', {
+async function fetchAndDisplayAllColumns(tableTitle, tableName) {
+    fetch(`/query-dataset/${tableName}/*`, {
         method: 'GET'
     }).then(response => response.json())
     .then((data) => {
-        renderTable("View All users", data);
+        renderTable(tableTitle, data);
     }).catch((err) => {
         console.log(err);
     })
@@ -46,8 +23,10 @@ async function fetchAndDisplayUsers() {
 // Fetches data from the UserInfo table and displays it.
 async function renderTable(header, dataJson) {
     try {
+        const resultContainer = document.getElementById('resultContainer');
         const tableContainer = document.getElementById('tableContainer');
         // reset
+        resultContainer.innerHTML = '';
         tableContainer.innerHTML = '';
 
         // header text
@@ -58,8 +37,9 @@ async function renderTable(header, dataJson) {
         const table = jsonToHtmlTable(dataJson);
 
         // append
-        tableContainer.appendChild(headerText);
+        resultContainer.appendChild(headerText);
         tableContainer.appendChild(table);
+
         return true;
     } catch (err) {
         return false;
@@ -126,7 +106,7 @@ async function insertUser(event) {
 
     if (responseData.success) {
         messageElement.textContent = "User inserted successfully!";
-        fetchAndDisplayTable(TABLE.USERINFO.id, TABLE.USERINFO.name);
+        fetchAndDisplayAllColumns("Current Users",TABLE.USERINFO.name)
     } else {
         messageElement.textContent = "Error inserting user!";
     }
@@ -178,15 +158,14 @@ async function submitQuery() {
 
     fetch(`/query-dataset/${table}/${Array.from(columns).join(', ')}`, {
         method: 'GET'
-    }).then(response => response.json())
-    .then(async (data) => {
+    }).then(response => response.json()
+    ).then(async (data) => {
         let worked = await renderTable("View All users", data)
         if (worked) {
             messageElement.textContent = "Query Complete!";
         } else {
             messageElement.textContent = "Query Failed!";
         }
-
     }).catch((err) => {
         console.log(err);
         messageElement.textContent = "Error Querying!";
@@ -198,7 +177,7 @@ async function submitQuery() {
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
 window.onload = function() {
-    fetchAndDisplayAllTables();
+    fetchAndDisplayAllColumns("Current Users",TABLE.USERINFO.name)
 
     document.getElementById("insertUser").addEventListener("submit", insertUser);
     document.getElementById("clearQuery").addEventListener("click", clearQuery);
