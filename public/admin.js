@@ -8,71 +8,6 @@ const TABLE = {
     FEEDBACK: { id: 'feedbackTable', name: 'feedback' }
 }
 
-// Fetches data from the UserInfo table and displays it.
-async function fetchAndDisplayAllColumns(tableTitle, tableName) {
-    fetch(`/query-dataset/${tableName}/*`, {
-        method: 'GET'
-    }).then(response => response.json())
-    .then((data) => {
-        renderTable(tableTitle, data);
-    }).catch((err) => {
-        console.log(err);
-    })
-}
-
-// Fetches data from the UserInfo table and displays it.
-async function renderTable(header, dataJson) {
-    try {
-        const resultContainer = document.getElementById('resultContainer');
-        const tableContainer = document.getElementById('tableContainer');
-        // reset
-        resultContainer.innerHTML = '';
-        tableContainer.innerHTML = '';
-
-        // header text
-        const headerText = document.createElement('h2');
-        headerText.textContent = header;
-
-        // create table
-        const table = jsonToHtmlTable(dataJson);
-
-        // append
-        resultContainer.appendChild(headerText);
-        tableContainer.appendChild(table);
-
-        return true;
-    } catch (err) {
-        return false;
-    }
-}
-
-function jsonToHtmlTable(dataJson) {
-	const table = document.createElement('table');
-	table.classList.add('table');
-	const header = table.createTHead();
-	const body = table.createTBody();
-
-	// Create table header row
-    const headerRow = header.insertRow();
-	console.log(dataJson)
-    dataJson.data.metaData.forEach(elem => {
-		const th = document.createElement('th');
-		th.textContent = elem.name;
-		headerRow.appendChild(th);
-	});
-
-	// Populate table body
-	dataJson.data.rows.forEach(item => {
-		const row = body.insertRow();
-		Object.values(item).forEach(value => {
-			const cell = row.insertCell();
-			cell.textContent = value.length > 50 ? value.substring(0, 50) + '...' : value;
-		});
-	});
-
-	return table;
-}
-
 // Inserts new user into the UserInfo table.
 async function insertUser(event) {
     event.preventDefault();
@@ -160,7 +95,7 @@ async function submitQuery() {
         method: 'GET'
     }).then(response => response.json()
     ).then(async (data) => {
-        let worked = await renderTable("View All users", data)
+        let worked = await renderTable("Queried Results", data)
         if (worked) {
             messageElement.textContent = "Query Complete!";
         } else {
