@@ -115,4 +115,13 @@ router.get('/get-recipe', async (req, res) => {
     }
 });
 
+// get table data with tableName and fields param using GET request
+router.get('/query-dataset/:tableName/:fields', async (req, res) => {
+    const tableName = req.params.tableName.toUpperCase();
+    const fields = req.params.fields;
+    const tableContent = await appService.queryTable(tableName, fields);
+    res.json({ data: tableContent });
+
+});
+
 module.exports = router;
