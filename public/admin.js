@@ -5,7 +5,8 @@
 // To standardize tableId and tableName
 const TABLE = {
     USERINFO: { id: 'userTable', name: 'userinfo' },
-    FEEDBACK: { id: 'feedbackTable', name: 'feedback' }
+    FEEDBACK: { id: 'feedbackTable', name: 'feedback' },
+    JOIN_FEEDBACK: { id: 'joinFeedbackTable', name: 'join-feedback' }
 }
 
 // Inserts new user into the UserInfo table.
@@ -45,6 +46,33 @@ async function insertUser(event) {
     } else {
         messageElement.textContent = "Error inserting user!";
     }
+}
+
+// Joins version/feedback/recipe to show results with feedbackRating >= X
+async function joinFeedbackTable() {
+    const tableElement = document.getElementById(TABLE.JOIN_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    const feedbackRating = document.getElementById('insertRating').value;
+
+    let query = `/join-feedback-rating/${feedbackRating}`;
+
+    const response = await fetch(query, { method: 'GET' });
+    
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+    
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(tuple => {
+        const row = tableBody.insertRow();
+        tuple.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
 }
 
 let columns = new Set();
@@ -115,6 +143,7 @@ window.onload = function() {
     fetchAndDisplayAllColumns("Current Users",TABLE.USERINFO.name)
 
     document.getElementById("insertUser").addEventListener("submit", insertUser);
+    document.getElementById("joinFeedbackRating").addEventListener("submit", joinFeedbackTable);
     document.getElementById("clearQuery").addEventListener("click", clearQuery);
     document.getElementById("addColumn").addEventListener("click", addColumn);
     document.getElementById("setTable").addEventListener("click", setTable);
