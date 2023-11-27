@@ -138,4 +138,14 @@ router.get('/nested-query-dataset/:age', async (req, res) => {
     res.json({ data: tableContent });
 });
 
+// get table data aggregation with having Number of Versions per recipe
+router.get('/aggregation-with-having-dataset/:count', async (req, res) => {
+    const tableContent = await appService.aggregationHaving(req.params.count);
+    if (tableContent) {
+        res.json({ success: true, data: tableContent });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;
