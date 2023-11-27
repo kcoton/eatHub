@@ -31,7 +31,7 @@
 | [x] Projection | Select any columns from any table as the admin | Kiara |
 | [in progress] Join | Join Version, Feedback, Recipe. Filter for feedbackRating > X | Kiara |
 | [] Aggregation - Group By | Count of feedback / versions by users | Kiara |
-| [] Aggregation - Having | Versions of any recipes having rating > certain score | Justin |
+| [x] Aggregation - Having | Recipes with # of versions > X | Justin |
 | [] Nested Aggregation | | Justin |
 | [] Division | Find all recipes that have specific ingredient(s) | Justin |
 

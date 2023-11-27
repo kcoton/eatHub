@@ -5,7 +5,8 @@
 // To standardize tableId and tableName
 const TABLE = {
     USERINFO: { id: 'userTable', name: 'userinfo' },
-    FEEDBACK: { id: 'feedbackTable', name: 'feedback' }
+    FEEDBACK: { id: 'feedbackTable', name: 'feedback' },
+    HAVING_TABLE: {id: 'havingTable' }
 }
 
 // Inserts new user into the UserInfo table.
@@ -107,6 +108,42 @@ async function submitQuery() {
     })
 }
 
+// Returns a table with the number of counts of version for a Recipe
+async function aggregationHaving(event) {
+    event.preventDefault();
+    
+    const tableElement = document.getElementById(TABLE.HAVING_TABLE.id);
+    const tableBody = tableElement.querySelector('tbody');
+    
+    const messageElement = document.getElementById('aggregationHavingResult');
+    let count = document.getElementById('countInput').value;
+
+    const response = await fetch(`/aggregation-with-having-dataset/${count}`, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    if (responseData.success) {
+        messageElement.textContent = 'Number of Versions Found';
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });  
+    } else {
+        messageElement.textContent = "Number of Versions not Found";
+    }
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -119,4 +156,5 @@ window.onload = function() {
     document.getElementById("addColumn").addEventListener("click", addColumn);
     document.getElementById("setTable").addEventListener("click", setTable);
     document.getElementById("submitQuery").addEventListener("click", submitQuery);
+    document.getElementById("countVersion").addEventListener("submit", aggregationHaving);
 };

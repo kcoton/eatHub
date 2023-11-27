@@ -222,13 +222,29 @@ async function updateFeedback(versionId, feedbackComment, feedbackRating, feedba
 }
 
 // PROJECTION
-async function queryTable(tableName,columns) {
+async function queryTable(tableName, columns) {
     return await withOracleDB(async (connection) => {
         let query = `SELECT ${columns} FROM ${tableName}`;
         const result = await connection.execute(query);
         return result;
     }).catch((e) => {
         console.log("Error at queryTable", e);
+        return [];
+    });
+}
+
+// Aggregation with HAVING
+async function aggregationHaving(count) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT RECIPEID, 
+                        COUNT(VERSIONID)
+                        FROM VERSION 
+                        GROUP BY RECIPEID 
+                        HAVING COUNT(VERSIONID) >= ${count}`;
+        const result = await connection.execute(query);
+        return result.rows;
+    }).catch((e) => {
+        console.log("Error at aggregationHaving", e);
         return [];
     });
 }
@@ -270,6 +286,7 @@ module.exports = {
     deleteRecipe,
     updateFeedback,
     queryTable,
+    aggregationHaving,
     getTableWithHeader,
     nestedQueryFeedback
 };
