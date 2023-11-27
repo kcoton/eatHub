@@ -59,6 +59,14 @@ async function getAllTables() {
         dropdownElement.innerHTML = '';
         let dropdown = document.createElement('select');
         dropdown.id = "dropdownTableValue";
+        dropdown.addEventListener('input', getAllColumns);
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.label = "Select Table from Below";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        dropdown.appendChild(defaultOption);
 
         data.data.rows.forEach(item => {
             const optionElement = document.createElement('option');
@@ -94,6 +102,13 @@ async function getAllColumns() {
         let dropdown = document.createElement('select');
         dropdown.id = "dropdownColumnsValues";
         dropdown.multiple = true;
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.label = "Select Columns from Below";
+        defaultOption.disabled = true;
+        // defaultOption.selected = true;
+        dropdown.appendChild(defaultOption);
 
         data.data.rows.forEach(item => {
             const optionElement = document.createElement('option')
