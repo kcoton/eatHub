@@ -233,6 +233,17 @@ async function queryTable(tableName,columns) {
     });
 }
 
+async function queryTableWhere(tableName,columns,where) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT ${columns} FROM ${tableName} WHERE ${where}`;
+        const result = await connection.execute(query);
+        return result;
+    }).catch((e) => {
+        console.log("Error at queryTable", e);
+        return [];
+    });
+}
+
 // Nested Query
 async function nestedQueryFeedback(age) {
     return await withOracleDB(async (connection) => {
@@ -271,5 +282,6 @@ module.exports = {
     updateFeedback,
     queryTable,
     getTableWithHeader,
-    nestedQueryFeedback
+    nestedQueryFeedback,
+    queryTableWhere
 };

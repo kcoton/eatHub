@@ -64,14 +64,11 @@
     <section id="query-data">
         <h2>Query Data</h2>
         <form>
-            Column <input text type="text" id="columnInput" placeholder="Enter Column">
-            <br><button type="button" id="addColumn">Add Column</button>
-            Table <input text type="text" id="tableInput" placeholder="Enter Table">
-            <br><button type="button" id="setTable">Set Table</button>
-            
+            <br><button type="button" id="getAllTables">Retrieve All Tables</button>
+            <br><div id="allTables"></div>
+            <br><button type="button" id="getAllColumns">Retrieve All Columns</button>
+            <br><div id="allColumns"></div>
             <br><button type="button" id="submitQuery">Submit Query</button>
-            <br><button type="button" id="clearQuery">Clear Query</button>
-            <br><div id="currentColumns"></div>
             <br><div id="currentTable"></div>
         </form>
     </section>
