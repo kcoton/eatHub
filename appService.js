@@ -248,6 +248,18 @@ async function queryTable(tableName,columns) {
     });
 }
 
+// AGGREGATION - GROUP BY: counts contributions of each userID in Feedback
+async function countFeedbackByUser() {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT USERID, COUNT(FEEDBACKCOMMENT) FROM FEEDBACK GROUP BY USERID`;
+        const result = await connection.execute(query);
+        return result.rows;
+    }).catch((e) => {
+        console.log("Error at countFeedbackByUser", e);
+        return [];
+    });
+}
+
 // Nested Query
 async function nestedQueryFeedback(age) {
     return await withOracleDB(async (connection) => {
@@ -287,5 +299,6 @@ module.exports = {
     joinFeedbackRating,
     queryTable,
     getTableWithHeader,
+    countFeedbackByUser,
     nestedQueryFeedback
 };

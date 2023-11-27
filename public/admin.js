@@ -6,7 +6,8 @@
 const TABLE = {
     USERINFO: { id: 'userTable', name: 'userinfo' },
     FEEDBACK: { id: 'feedbackTable', name: 'feedback' },
-    JOIN_FEEDBACK: { id: 'joinFeedbackTable', name: 'join-feedback' }
+    JOIN_FEEDBACK: { id: 'joinFeedbackTable' },
+    COUNT_FEEDBACK: { id: 'countFeedbackTable' }
 }
 
 // Inserts new user into the UserInfo table.
@@ -49,7 +50,9 @@ async function insertUser(event) {
 }
 
 // Joins version/feedback/recipe to show results with feedbackRating >= X
-async function joinFeedbackTable() {
+async function joinFeedbackTable(event) {
+    event.preventDefault();
+
     const tableElement = document.getElementById(TABLE.JOIN_FEEDBACK.id);
     const tableBody = tableElement.querySelector('tbody');
     const feedbackRating = document.getElementById('insertRating').value;
@@ -57,10 +60,9 @@ async function joinFeedbackTable() {
     let query = `/join-feedback-rating/${feedbackRating}`;
 
     const response = await fetch(query, { method: 'GET' });
-    
     const responseData = await response.json();
     const tableContent = responseData.data;
-    
+
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
@@ -73,6 +75,40 @@ async function joinFeedbackTable() {
             cell.textContent = field;
         });
     });
+}
+
+// Counts feedback contribution per userId
+async function countFeedback(event) {
+    event.preventDefault();
+
+    let query = `/count-feedback`;
+    const tableElement = document.getElementById(TABLE.COUNT_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    
+
+    const response = await fetch(query, { method: 'GET' });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    const messageElement = document.getElementById('countFeedbackResult');
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    if (responseData.success) {
+        messageElement.textContent = "Count feedback by user successful!";
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    } else {
+        messageElement.textContent = "Error with count feedback by user!";
+    }
 }
 
 let columns = new Set();
@@ -140,12 +176,10 @@ async function submitQuery() {
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
 window.onload = function() {
-    fetchAndDisplayAllColumns("Current Users",TABLE.USERINFO.name)
-
-    document.getElementById("insertUser").addEventListener("submit", insertUser);
     document.getElementById("joinFeedbackRating").addEventListener("submit", joinFeedbackTable);
     document.getElementById("clearQuery").addEventListener("click", clearQuery);
     document.getElementById("addColumn").addEventListener("click", addColumn);
     document.getElementById("setTable").addEventListener("click", setTable);
     document.getElementById("submitQuery").addEventListener("click", submitQuery);
+    document.getElementById("countFeedback").addEventListener("submit", countFeedback);
 };

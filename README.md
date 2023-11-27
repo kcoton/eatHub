@@ -29,8 +29,8 @@
 | [x] Update | Update Feedback (versionID, feedbackComment, feedbackRating are non-primary keys. Foreign key is versionID) | Eric |
 | [x] Selection | Select Recipe using OR for recipeCategory | Eric |
 | [x] Projection | Select any columns from any table as the admin | Kiara |
-| [in progress] Join | Join Version, Feedback, Recipe. Filter for feedbackRating > X | Kiara |
-| [] Aggregation - Group By | Count of feedback / versions by users | Kiara |
+| [x] Join | Join Version, Feedback, Recipe. Filter for feedbackRating > X | Kiara |
+| [x] Aggregation - Group By | Group by userID, counts number of contributions in Feedback | Kiara |
 | [] Aggregation - Having | Versions of any recipes having rating > certain score | Justin |
 | [] Nested Aggregation | | Justin |
 | [] Division | Find all recipes that have specific ingredient(s) | Justin |

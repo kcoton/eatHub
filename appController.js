@@ -126,6 +126,16 @@ router.get('/join-feedback-rating/:feedbackRating', async (req, res) => {
     }
 });
 
+// count contributions by userId in Feedback using GET request
+router.get('/count-feedback', async (req, res) => {
+    const tableContent = await appService.countFeedbackByUser();
+    if (tableContent) {
+        res.json({ success: true, data: tableContent });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 // get table data with tableName and fields param using GET request
 router.get('/query-dataset/:tableName/:fields', async (req, res) => {
     const tableName = req.params.tableName.toUpperCase();
