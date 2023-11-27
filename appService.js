@@ -233,6 +233,17 @@ async function queryTable(tableName, columns) {
     });
 }
 
+async function queryTableWhere(tableName,columns,where) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT ${columns} FROM ${tableName} WHERE ${where}`;
+        const result = await connection.execute(query);
+        return result;
+    }).catch((e) => {
+        console.log("Error at queryTable", e);
+        return [];
+    });
+}
+
 // Aggregation with HAVING
 async function aggregationHaving(count) {
     return await withOracleDB(async (connection) => {
@@ -288,5 +299,6 @@ module.exports = {
     queryTable,
     aggregationHaving,
     getTableWithHeader,
-    nestedQueryFeedback
+    nestedQueryFeedback,
+    queryTableWhere
 };

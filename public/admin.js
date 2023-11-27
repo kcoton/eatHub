@@ -48,57 +48,100 @@ async function insertUser(event) {
     }
 }
 
-let columns = new Set();
-let table = "";
+// PROJECTION
+async function getAllTables() {
+    const messageElement = document.getElementById('currentTable');
+    const dropdownElement = document.getElementById('allTables');
 
-function clearQuery() {
-    const currentColumns = document.getElementById('currentColumns');
-    const currentTable = document.getElementById('currentTable');
+    fetch(`/query-dataset/user_tables/table_name`, {
+        method: 'GET'
+    }).then(response => response.json()
+    ).then(async (data) => {
+        dropdownElement.innerHTML = '';
+        let dropdown = document.createElement('select');
+        dropdown.id = "dropdownTableValue";
+        dropdown.addEventListener('input', getAllColumns);
 
-    columns = new Set();
-    table = "";
-    currentColumns.textContent = `Column cleared`;
-    currentTable.textContent = `Table cleared`;
-}
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.label = "Select Table from Below";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        dropdown.appendChild(defaultOption);
 
-function addColumn() {
-    const currentColumns = document.getElementById('currentColumns');
-    const newColumn = document.getElementById('columnInput');
-    if (newColumn.value.length > 0) {
-        try {
-            columns.add(newColumn.value.trim());
-            currentColumns.textContent = `Column added: ${Array.from(columns).join(', ')}`;
-        } catch (err) {
-            console.log(err);
-            currentColumns.textContent = "Error adding column";
-        }
-    } else {
-        currentColumns.textContent = `Column added: ${Array.from(columns).join(', ')}`;
-    }
-}
-
-function setTable() {
-    const currentTable = document.getElementById('currentTable');
-    const newTable = document.getElementById('tableInput');
-    try {
-        table = newTable.value.trim();
-        currentTable.textContent = `Table set: ${table}`;
-    } catch (err) {
+        data.data.rows.forEach(item => {
+            const optionElement = document.createElement('option');
+            optionElement.value = item;
+            optionElement.label = item;
+            dropdown.appendChild(optionElement);
+        })
+        dropdownElement.appendChild(dropdown);
+    }).catch((err) => {
         console.log(err);
-        currentTable.textContent = "Error adding column";
+        messageElement.textContent = "Error Querying!";
+    })
+}
+
+async function getAllColumns() {
+    const messageElement = document.getElementById('currentTable');
+    const dropdownElement = document.getElementById('allColumns');
+
+    let tableName = document.getElementById('dropdownTableValue');
+    if (!tableName) {
+        messageElement.textContent = "Error with table name!";
+        return;
     }
+
+    console.log(`/query-dataset/user_tab_columns/column_name/table_name='${tableName.value.trim()}'`);
+
+    fetch(`/query-dataset/user_tab_columns/column_name/table_name='${tableName.value.trim()}'`, {
+        method: 'GET'
+    }).then(response => response.json()
+    ).then(async (data) => {
+        dropdownElement.innerHTML = '';
+        
+        let dropdown = document.createElement('select');
+        dropdown.id = "dropdownColumnsValues";
+        dropdown.multiple = true;
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.label = "Select Columns from Below";
+        defaultOption.disabled = true;
+        // defaultOption.selected = true;
+        dropdown.appendChild(defaultOption);
+
+        data.data.rows.forEach(item => {
+            const optionElement = document.createElement('option')
+            optionElement.value = item
+            optionElement.label = item
+            dropdown.appendChild(optionElement);
+        })
+
+        dropdownElement.appendChild(dropdown);
+    }).catch((err) => {
+        console.log(err);
+        messageElement.textContent = "Error Querying!";
+    })
 }
 
 async function submitQuery() {
     const messageElement = document.getElementById('currentTable');
 
-    fetch(`/query-dataset/${table}/${Array.from(columns).join(', ')}`, {
+    let tableName = document.getElementById('dropdownTableValue');
+    let tableNameString = tableName.value.trim();
+    let columnNames = document.getElementById('dropdownColumnsValues');
+    let columnNamesString = Array.from(columnNames.selectedOptions).map(option => option.value).join(', ')
+    
+    console.log(`/query-dataset/${tableNameString}/${columnNamesString}`);
+
+    fetch(`/query-dataset/${tableNameString}/${columnNamesString}`, {
         method: 'GET'
     }).then(response => response.json()
     ).then(async (data) => {
         let worked = await renderTable("Queried Results", data)
         if (worked) {
-            messageElement.textContent = "Query Complete!";
+            messageElement.textContent = "Query Complete. Table updated!";
         } else {
             messageElement.textContent = "Query Failed!";
         }
@@ -144,7 +187,6 @@ async function aggregationHaving(event) {
     }
 }
 
-
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -152,9 +194,8 @@ window.onload = function() {
     fetchAndDisplayAllColumns("Current Users",TABLE.USERINFO.name)
 
     document.getElementById("insertUser").addEventListener("submit", insertUser);
-    document.getElementById("clearQuery").addEventListener("click", clearQuery);
-    document.getElementById("addColumn").addEventListener("click", addColumn);
-    document.getElementById("setTable").addEventListener("click", setTable);
     document.getElementById("submitQuery").addEventListener("click", submitQuery);
+    document.getElementById("getAllTables").addEventListener("click", getAllTables);
+    document.getElementById("getAllColumns").addEventListener("click", getAllColumns);
     document.getElementById("countVersion").addEventListener("submit", aggregationHaving);
 };
