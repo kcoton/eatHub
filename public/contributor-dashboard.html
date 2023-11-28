@@ -59,8 +59,8 @@
 
         <h2 id="insert-meal">Insert New Meal</h2>
         <form id="insertMeal" class="insert-meal">
-            MealPlanID: <input text type="number" id="insertMealPlanId" placeholder="Enter MealID" required>
-            MealID: <input text type="number" id="insertMealId" placeholder="Enter MealPlanID" required>
+            MealPlanID: <input text type="number" id="insertMealPlanId" placeholder="Enter MealID" min="1" required>
+            MealID: <input text type="number" id="insertMealId" placeholder="Enter MealPlanID" min="1" required>
             Name: <input type="text" id="insertMealName" placeholder="Enter Name" maxlength="20" required>
             Category: <input type="text" id="insertMealCategory" placeholder="Enter Category" maxlength="20" required>
             Day: <input type="date" id="insertMealDay" placeholder="Enter Day" required>
@@ -96,7 +96,7 @@
 
         <h2 id="delete-recipe">Delete Existing Recipe</h2>
         <form id="deleteRecipe" class="delete-recipe">
-            RecipeID: <input text type="number" id="deleteRecipeId" placeholder="Enter RecipeID" required>
+            RecipeID: <input text type="number" id="deleteRecipeId" placeholder="Enter RecipeID" min="1" required>
             <br><button type="submit">Delete</button>
             <br><div id="deleteRecipeResult"></div>
         </form>
@@ -125,8 +125,8 @@
 
         <h2 id="update-feedback">Update Existing Feedback</h2>
         <form id="updateFeedback" class="update-feedback">
-            FeedbackID: <select name="selectFeedbackId" id="selectFeedbackId" required></select>
-            VersionID: <input text type="number" id="updateVersionId" placeholder="Enter VersionID" required>
+            FeedbackID: <select name="selectFeedbackId" id="selectFeedbackId" min="1" required></select>
+            VersionID: <input text type="number" id="updateVersionId" placeholder="Enter VersionID" min="1" required>
             Comment: <textarea type="text" id="updateComment" placeholder="Enter Comment" required></textarea>
             Rating (0-5): <input text type="number" id="updateRating" placeholder="Enter Rating" min="0" max="5" required>
             <br><button type="submit">Update</button>
@@ -141,7 +141,7 @@
         <div class="table-scroll" id="tableContainer"></div>
         
         <form id="updateFeedback" class="update-feedback">
-            Maximum Age: <input text type="number" id="ageInput" placeholder="Enter Maximum Age" required>
+            Maximum Age: <input text type="number" id="ageInput" placeholder="Enter Maximum Age" min="1" max="100" required>
             <br><button type="button" id="nestedQueryFeedback">Query</button>
             <br><div id="nestedQueryFeedbackResult"></div>
         </form>

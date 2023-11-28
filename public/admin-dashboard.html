@@ -44,12 +44,12 @@
     <section id="manage-users">
         <h2>Insert New User</h2>
         <form id="insertUser" class="insert-user">
-            ID: <input text type="number" id="insertId" placeholder="Enter ID" required>
+            ID: <input text type="number" id="insertId" placeholder="Enter ID" min="1" required>
             Email: <input type="text" id="insertEmail" placeholder="Enter Email" maxlength="30" required>
             Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20" required>
             Birthday: <input type="date" id="insertBirthday" placeholder="Enter Birthday" required>
-            Weight (lbs): <input type="number" id="insertWeight" placeholder="Enter Weight" required>
-            Height (cm): <input type="number" id="insertHeight" placeholder="Enter Height" required>
+            Weight (lbs): <input type="number" id="insertWeight" placeholder="Enter Weight" min="1" required>
+            Height (cm): <input type="number" id="insertHeight" placeholder="Enter Height" min="1" required>
             
             <br><button type="submit">Insert</button>
             <br><div id="insertUserResult"></div>
