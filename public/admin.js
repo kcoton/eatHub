@@ -10,7 +10,7 @@ const TABLE = {
 }
 
 // Inserts new user into the UserInfo table.
-async function insertUser(event) {
+async function insertUser(event) {    
     event.preventDefault();
 
     const userId = document.getElementById('insertId').value;
@@ -20,6 +20,16 @@ async function insertUser(event) {
     const birthday = document.getElementById('insertBirthday').value;
     const weight = document.getElementById('insertWeight').value;
     const height = document.getElementById('insertHeight').value;
+
+    const messageElement = document.getElementById('insertUserResult');
+
+    if (!isSanitized(email) || !isSanitized(name)) {
+        messageElement.textContent = "Please remove *, ;, or ? from the input";
+        return;
+    } else {
+        console.log("email passed the sanitization test")
+    }
+
 
     const response = await fetch('/insert-user', {
         method: 'POST',
@@ -38,7 +48,6 @@ async function insertUser(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('insertUserResult');
 
     if (responseData.success) {
         messageElement.textContent = "User inserted successfully!";

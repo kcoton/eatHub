@@ -246,6 +246,11 @@ async function nestedQueryFeedback() {
     const messageElement = document.getElementById('nestedQueryFeedbackResult');
     let age = document.getElementById('ageInput').value;
 
+    if (!isSanitized(age)) {
+        messageElement.textContent = "Please remove *, ;, or ? from the field";
+        return;
+    }
+
     fetch(`/nested-query-dataset/${age}`, {
         method: 'GET'
     }).then(response => response.json()

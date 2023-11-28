@@ -104,6 +104,12 @@ async function checkDbConnection() {
     });
 }
 
+function isSanitized(input) {
+    if (input.includes(";") || input.includes("*") || input.includes("?")) {
+        return false;
+    } 
+    return true;
+}
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
