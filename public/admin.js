@@ -65,6 +65,68 @@ async function joinFeedbackTable(event) {
     const tableElement = document.getElementById(TABLE.JOIN_FEEDBACK.id);
     const tableBody = tableElement.querySelector('tbody');
     const feedbackRating = document.getElementById('insertRating').value;
+
+    let query = `/join-feedback-rating/${feedbackRating}`;
+
+    const response = await fetch(query, { method: 'GET' });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(tuple => {
+        const row = tableBody.insertRow();
+        tuple.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+// Counts feedback contribution per userId
+async function countFeedback(event) {
+    event.preventDefault();
+
+    let query = `/count-feedback`;
+    const tableElement = document.getElementById(TABLE.COUNT_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    
+
+    const response = await fetch(query, { method: 'GET' });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    const messageElement = document.getElementById('countFeedbackResult');
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    if (responseData.success) {
+        messageElement.textContent = "Count feedback by user successful!";
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    } else {
+        messageElement.textContent = "Error with count feedback by user!";
+    }
+}
+
+// Joins version/feedback/recipe to show results with feedbackRating >= X
+async function joinFeedbackTable(event) {
+    event.preventDefault();
+
+    const tableElement = document.getElementById(TABLE.JOIN_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    const feedbackRating = document.getElementById('insertRating').value;
     const messageElement = document.getElementById('joinFeedbackRatingResult');
 
     let query = `/join-feedback-rating/${feedbackRating}`;
@@ -277,5 +339,5 @@ window.onload = function() {
     document.getElementById("getAllTables").addEventListener("click", getAllTables);
     // document.getElementById("getAllColumns").addEventListener("click", getAllColumns);
     document.getElementById("countVersion").addEventListener("submit", aggregationHaving);
-    document.getElementById("countFeedback").addEventListener("click", countFeedback);
+    document.getElementById("countFeedback").addEventListener("submit", countFeedback);
 };
