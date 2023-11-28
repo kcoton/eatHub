@@ -6,7 +6,9 @@
 const TABLE = {
     USERINFO: { id: 'userTable', name: 'userinfo' },
     FEEDBACK: { id: 'feedbackTable', name: 'feedback' },
-    HAVING_TABLE: {id: 'havingTable' }
+    HAVING_TABLE: {id: 'havingTable' },
+    JOIN_FEEDBACK: { id: 'joinFeedbackTable' },
+    COUNT_FEEDBACK: { id: 'countFeedbackTable' }
 }
 
 // Inserts new user into the UserInfo table.
@@ -29,7 +31,6 @@ async function insertUser(event) {
     } else {
         console.log("email passed the sanitization test")
     }
-
 
     const response = await fetch('/insert-user', {
         method: 'POST',
@@ -54,6 +55,136 @@ async function insertUser(event) {
         fetchAndDisplayAllColumns("Current Users",TABLE.USERINFO.name)
     } else {
         messageElement.textContent = "Error inserting user!";
+    }
+}
+
+// Joins version/feedback/recipe to show results with feedbackRating >= X
+async function joinFeedbackTable(event) {
+    event.preventDefault();
+
+    const tableElement = document.getElementById(TABLE.JOIN_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    const feedbackRating = document.getElementById('insertRating').value;
+
+    let query = `/join-feedback-rating/${feedbackRating}`;
+
+    const response = await fetch(query, { method: 'GET' });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(tuple => {
+        const row = tableBody.insertRow();
+        tuple.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+// Counts feedback contribution per userId
+async function countFeedback(event) {
+    event.preventDefault();
+
+    let query = `/count-feedback`;
+    const tableElement = document.getElementById(TABLE.COUNT_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    
+
+    const response = await fetch(query, { method: 'GET' });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    const messageElement = document.getElementById('countFeedbackResult');
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    if (responseData.success) {
+        messageElement.textContent = "Count feedback by user successful!";
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    } else {
+        messageElement.textContent = "Error with count feedback by user!";
+    }
+}
+
+// Joins version/feedback/recipe to show results with feedbackRating >= X
+async function joinFeedbackTable(event) {
+    event.preventDefault();
+
+    const tableElement = document.getElementById(TABLE.JOIN_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    const feedbackRating = document.getElementById('insertRating').value;
+    const messageElement = document.getElementById('joinFeedbackRatingResult');
+
+    let query = `/join-feedback-rating/${feedbackRating}`;
+
+    const response = await fetch(query, { method: 'GET' });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    if (responseData.success) {
+        messageElement.textContent = "Join for rating successful!";
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    } else {
+        messageElement.textContent = "Error with join for rating!";
+    }
+}
+
+// Counts feedback contribution per userId
+async function countFeedback(event) {
+    event.preventDefault();
+
+    let query = `/count-feedback`;
+    const tableElement = document.getElementById(TABLE.COUNT_FEEDBACK.id);
+    const tableBody = tableElement.querySelector('tbody');
+    
+
+    const response = await fetch(query, { method: 'GET' });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    const messageElement = document.getElementById('countFeedbackResult');
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    if (responseData.success) {
+        messageElement.textContent = "Count feedback by user successful!";
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    } else {
+        messageElement.textContent = "Error with count feedback by user!";
     }
 }
 
@@ -203,8 +334,10 @@ window.onload = function() {
     fetchAndDisplayAllColumns("Current Users",TABLE.USERINFO.name)
 
     document.getElementById("insertUser").addEventListener("submit", insertUser);
+    document.getElementById("joinFeedbackRating").addEventListener("submit", joinFeedbackTable);
     document.getElementById("submitQuery").addEventListener("click", submitQuery);
     document.getElementById("getAllTables").addEventListener("click", getAllTables);
-    document.getElementById("getAllColumns").addEventListener("click", getAllColumns);
+    // document.getElementById("getAllColumns").addEventListener("click", getAllColumns);
     document.getElementById("countVersion").addEventListener("submit", aggregationHaving);
+    document.getElementById("countFeedback").addEventListener("submit", countFeedback);
 };

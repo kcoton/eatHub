@@ -15,6 +15,7 @@
 /**
  * Shared functionalities between pages should be put here
  */
+
 // Fetches data from the UserInfo table and displays it.
 async function fetchAndDisplayAllColumns(tableTitle, tableName) {
     fetch(`/query-dataset/${tableName}/*`, {
@@ -61,7 +62,6 @@ function jsonToHtmlTable(dataJson) {
 
 	// Create table header row
     const headerRow = header.insertRow();
-	console.log(dataJson)
     dataJson.data.metaData.forEach(elem => {
 		const th = document.createElement('th');
 		th.textContent = elem.name;
