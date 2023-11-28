@@ -17,9 +17,9 @@
     <a class="active" href="#home">Home</a>
     <!-- <a href="#manage-users">Manage Users</a> -->
     <a href="#feedback-rating">Join for Rating</a>
+    <a href="#count-feedback">Count Feedback by User</a>
     <a href="#query-data">Query Data</a> <!-- projection -->    
     <a href="#count-versions">Count Versions by Recipe</a>
-    <a href="#about">About</a>
     <a href="/">Logout</a>
 </div>
 
@@ -57,8 +57,8 @@
         </form>
     </section> -->
 
-    <section id="feedback-rating">
-        <h2>Join for Rating</h2>
+    <section id="feedback">
+        <h2 id="feedback-rating">Join for Rating</h2>
         <p>Joins Feedback, Version, and Recipe table to filter for feedbackRating >= X.</p>
         <form id="joinFeedbackRating" class="join-feedback-rating">
             Rating >= <input text type="number" id="insertRating" placeholder="Enter Rating" min="0" max="5" required>
@@ -77,6 +77,50 @@
                         <th>FEEDBACKRATING</th>
                         <th>INSTRUCTIONS</th>
                         <th>CALORIES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        
+        <h2 id="count-feedback">Count User Contributions</h2>
+        <p>Aggregation - group by: userId to count each user's feedback contributions</p>
+        <form id="countFeedback" class="count-feedback">
+            <br><button type="submit">Count Feedback by User</button>
+            <br><div id="countFeedbackResult"></div>
+        </form>
+
+        <div class="table-scroll">
+            <table id="countFeedbackTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>USERID</th>
+                        <th>COUNT(FEEDBACKCOMMENT)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="aggregation-with-having">
+        <h2 id="count-versions">Number of Versions per Recipe</h2>
+        <form id="countVersion" class="count-versions">
+            Number of Versions >=: <input text type="text" id="countInput" min="0" placeholder="#"></input>
+            <br><button type="submit">Show</button>
+            <br><div id="aggregationHavingResult"></div>
+        </form>
+        
+        <div class="table-scroll">
+            <table id="havingTable" border="1">
+                <thead>
+                    <tr>
+                        <!--Table head, need to be adjusted accordingly to align with your own.-->
+                        <th>RECIPEID</th>
+                        <th>Number of Versions </th>
                     </tr>
                 </thead>
                 <tbody>
