@@ -69,6 +69,13 @@ async function insertMeal(event) {
     const mealCategory = document.getElementById('insertMealCategory').value;
     const mealDay = document.getElementById('insertMealDay').value;
 
+    if (!isSanitized(mealName) || !isSanitized(mealCategory)) {
+        messageElement.textContent = "Please remove *, ;, or ? from the input";
+        return;
+    } else {
+        console.log("mealName & mealCategory passed the sanitization test")
+    }
+
     const response = await fetch('/insert-meal', {
         method: 'POST',
         headers: {
@@ -171,6 +178,13 @@ async function updateFeedback(event) {
     const versionId = document.getElementById('updateVersionId').value;
     const feedbackComment = document.getElementById('updateComment').value;
     const feedbackRating = document.getElementById('updateRating').value;
+
+    if (!isSanitized(feedbackComment)) {
+        messageElement.textContent = "Please remove *, ;, or ? from the comment";
+        return;
+    } else {
+        console.log("feedbackComment passed the sanitization test")
+    }
 
     const response = await fetch('/update-feedback', {
         method: 'PUT',
