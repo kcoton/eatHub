@@ -32,7 +32,6 @@ async function insertUser(event) {
         console.log("email passed the sanitization test")
     }
 
-
     const response = await fetch('/insert-user', {
         method: 'POST',
         headers: {
@@ -66,6 +65,7 @@ async function joinFeedbackTable(event) {
     const tableElement = document.getElementById(TABLE.JOIN_FEEDBACK.id);
     const tableBody = tableElement.querySelector('tbody');
     const feedbackRating = document.getElementById('insertRating').value;
+    const messageElement = document.getElementById('joinFeedbackRatingResult');
 
     let query = `/join-feedback-rating/${feedbackRating}`;
 
@@ -78,13 +78,18 @@ async function joinFeedbackTable(event) {
         tableBody.innerHTML = '';
     }
 
-    tableContent.forEach(tuple => {
-        const row = tableBody.insertRow();
-        tuple.forEach((field, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = field;
+    if (responseData.success) {
+        messageElement.textContent = "Join for rating successful!";
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
         });
-    });
+    } else {
+        messageElement.textContent = "Error with join for rating!";
+    }
 }
 
 // Counts feedback contribution per userId
@@ -270,7 +275,7 @@ window.onload = function() {
     document.getElementById("joinFeedbackRating").addEventListener("submit", joinFeedbackTable);
     document.getElementById("submitQuery").addEventListener("click", submitQuery);
     document.getElementById("getAllTables").addEventListener("click", getAllTables);
-    document.getElementById("getAllColumns").addEventListener("click", getAllColumns);
+    // document.getElementById("getAllColumns").addEventListener("click", getAllColumns);
     document.getElementById("countVersion").addEventListener("submit", aggregationHaving);
-    document.getElementById("countFeedback").addEventListener("submit", countFeedback);
+    document.getElementById("countFeedback").addEventListener("click", countFeedback);
 };

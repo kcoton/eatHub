@@ -248,7 +248,7 @@ async function queryTable(tableName, columns) {
     });
 }
 
-async function queryTableWhere(tableName,columns,where) {
+async function queryTableWhere(tableName, columns, where) {
     return await withOracleDB(async (connection) => {
         let query = `SELECT ${columns} FROM ${tableName} WHERE ${where}`;
         const result = await connection.execute(query);
