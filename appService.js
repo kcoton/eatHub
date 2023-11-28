@@ -221,6 +221,21 @@ async function updateFeedback(versionId, feedbackComment, feedbackRating, feedba
     });
 }
 
+// JOIN: joins version, recipe, feedback, and queries feedbackRating >= X
+async function joinFeedbackRating(feedbackRating) {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT recipeName, feedbackComment, feedbackRating, instructions, calories FROM FEEDBACK
+        JOIN VERSION ON VERSION.versionId = FEEDBACK.versionId AND VERSION.recipeId = FEEDBACK.recipeId
+        JOIN RECIPE ON RECIPE.recipeId = VERSION.recipeId
+        WHERE feedbackRating >= ${feedbackRating}`;
+        const result = await connection.execute(query);
+        return result.rows;
+    }).catch((e) => {
+        console.log("Error at joinFeedbackRating", e);
+        return [];
+    });
+}
+
 // PROJECTION
 async function queryTable(tableName, columns) {
     return await withOracleDB(async (connection) => {
@@ -296,6 +311,7 @@ module.exports = {
     insertMeal,
     deleteRecipe,
     updateFeedback,
+    joinFeedbackRating,
     queryTable,
     aggregationHaving,
     getTableWithHeader,
