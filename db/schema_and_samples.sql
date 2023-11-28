@@ -117,7 +117,7 @@ CREATE TABLE Feedback (
 	feedbackComment	VARCHAR(400),
     feedbackRating	INTEGER	NOT NULL,
     feedbackDate	DATE DEFAULT SYSDATE NOT NULL,
-	PRIMARY KEY (feedbackID),
+	PRIMARY KEY (feedbackID, userID),
     FOREIGN KEY (versionID, recipeID)
 		REFERENCES Version(versionID, recipeID)
 			ON DELETE CASCADE,
