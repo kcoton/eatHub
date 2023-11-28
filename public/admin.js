@@ -314,7 +314,7 @@ async function aggregationHaving(event) {
     }
 
     if (responseData.success) {
-        messageElement.textContent = 'Number of Versions Found';
+        messageElement.textContent = 'Count number of versions per recipe successful!';
         tableContent.forEach(tuple => {
             const row = tableBody.insertRow();
             tuple.forEach((field, index) => {
@@ -323,7 +323,7 @@ async function aggregationHaving(event) {
             });
         });  
     } else {
-        messageElement.textContent = "Number of Versions not Found";
+        messageElement.textContent = "Error with count number of versions per recipe!";
     }
 }
 

@@ -31,8 +31,8 @@
 | [x] Projection | Select any columns from any table as the admin | Kiara |
 | [x] Join | Join Version, Feedback, Recipe. Filter for feedbackRating > X | Kiara |
 | [x] Aggregation - Group By | Group by userID, counts number of contributions in Feedback | Kiara |
-| [x] Aggregation - Having | Recipes with # of versions > X | Justin |
-| [] Nested Aggregation | | Justin |
+| [x] Aggregation - Having | Shows recipes with # of versions > X | Justin |
+| [x] Nested Aggregation | Average feedbackRating grouped by recipeName, where user age is < X | Justin |
 | [] Division | Find all recipes that have specific ingredient(s) | Justin |
 
 ## Challenges

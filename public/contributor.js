@@ -38,7 +38,7 @@ async function fetchAndDisplayTable(tableId, tableName, userId) {
     const tableContent = responseData.data;
     
     // Updates select options
-    if (tableId == TABLE.FEEDBACK.id) {
+    if (tableId == TABLE.FEEDBACK.id) {      
         fetchAndDisplayFeedbackOptions(tableContent);
     } else if (tableId == TABLE.RECIPE.id) {
         fetchAndDisplayRecipeCategoryOptions(tableContent);
@@ -123,6 +123,7 @@ async function deleteRecipe(event) {
 
     if (responseData.success) {
         fetchAndDisplayTable(TABLE.RECIPE.id, TABLE.RECIPE.name);
+        fetchAndDisplayTable(TABLE.FEEDBACK.id, TABLE.FEEDBACK.name, userId);
         messageElement.textContent = "Recipe deleted successfully!";
     } else {
         messageElement.textContent = "Error deleting recipe!";
@@ -176,8 +177,10 @@ async function updateFeedback(event) {
 
     const feedbackId = document.getElementById('selectFeedbackId').value;
     const versionId = document.getElementById('updateVersionId').value;
+    const recipeId = document.getElementById('updateRecipeId').value;
     const feedbackComment = document.getElementById('updateComment').value;
     const feedbackRating = document.getElementById('updateRating').value;
+    const feedbackDate = document.getElementById('updateDate').value;
 
     if (!isSanitized(feedbackComment)) {
         messageElement.textContent = "Please remove *, ;, or ? from the comment";
@@ -194,8 +197,10 @@ async function updateFeedback(event) {
         body: JSON.stringify({
             feedbackId: feedbackId,
             versionId: versionId,
+            recipeId: recipeId,
             feedbackComment: feedbackComment,
-            feedbackRating: feedbackRating
+            feedbackRating: feedbackRating,
+            feedbackDate: feedbackDate
         })
     });
 

@@ -204,15 +204,15 @@ async function deleteRecipe(recipeId) {
 }
 
 // UPDATE: updates feedback in Feedback
-async function updateFeedback(versionId, feedbackComment, feedbackRating, feedbackId) {
+async function updateFeedback(versionId, feedbackComment, feedbackRating, feedbackDate, feedbackId) {
     return await withOracleDB(async (connection) => {
         const query = 
             `UPDATE FEEDBACK 
-            SET versionId = :versionId, feedbackComment = :feedbackComment, feedbackRating = :feedbackRating 
+            SET versionId = :versionId, recipeId = :recipeId, feedbackComment = :feedbackComment, feedbackRating = :feedbackRating, feedbackDate = :feedbackDate 
             WHERE feedbackId = :feedbackId`;
         const result = await connection.execute(
             query,
-            [versionId, feedbackComment, feedbackRating, feedbackId],
+            [versionId, recipeId, feedbackComment, feedbackRating, feedbackDate, feedbackId],
             { autoCommit: true }
         );
         return result.rowsAffected && result.rowsAffected > 0;

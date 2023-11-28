@@ -19,7 +19,7 @@
     <a href="#select-recipe">Select Recipe</a>
     <a href="#delete-recipe">Delete Recipe</a>
     <a href="#update-feedback">Update Feedback</a>
-    <a href="#query-recipe">Query Feedback</a> <!-- Nested Aggregation-->
+    <a href="#nested-query">Avg. Rating by Age</a> <!-- Nested Aggregation-->
     <a href="/">Logout</a>
 </div>
 
@@ -127,16 +127,18 @@
         <form id="updateFeedback" class="update-feedback">
             FeedbackID: <select name="selectFeedbackId" id="selectFeedbackId" min="1" required></select>
             VersionID: <input text type="number" id="updateVersionId" placeholder="Enter VersionID" min="1" required>
+            RecipeID: <input text type="number" id="updateRecipeId" placeholder="Enter RecipeID" min="1" required>
             Comment: <textarea type="text" id="updateComment" placeholder="Enter Comment" required></textarea>
             Rating (0-5): <input text type="number" id="updateRating" placeholder="Enter Rating" min="0" max="5" required>
+            Date: <input type="date" id="updateDate" placeholder="Enter Date" required>
             <br><button type="submit">Update</button>
             <br><div id="updateFeedbackResult"></div>
         </form>
     </section>
 
     <section id="nested-query-feedback">
-        <h2 id="query-recipe">Average Rating by Age</h2>
-
+        <h2 id="nested-query">Average Rating by Age (Nested Aggregation - Group By)</h2>
+        <p>This shows the average rating of recipes by people age < X.</p>
         <div id="resultContainer"></div>
         <div class="table-scroll" id="tableContainer"></div>
         
