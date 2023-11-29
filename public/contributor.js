@@ -174,6 +174,7 @@ async function fetchAndDisplayRecipeCategoryOptions(recipeContent) {
 // Updates existing feedback in the Feedback table.
 async function updateFeedback(event) {
     event.preventDefault();
+    const messageElement = document.getElementById('updateFeedbackResult');
 
     const feedbackId = document.getElementById('selectFeedbackId').value;
     const versionId = document.getElementById('updateVersionId').value;
@@ -181,6 +182,8 @@ async function updateFeedback(event) {
     const feedbackComment = document.getElementById('updateComment').value;
     const feedbackRating = document.getElementById('updateRating').value;
     const feedbackDate = document.getElementById('updateDate').value;
+
+    console.log(versionId, recipeId, feedbackComment, feedbackRating, feedbackDate, feedbackId);
 
     if (!isSanitized(feedbackComment)) {
         messageElement.textContent = "Please remove *, ;, or ? from the comment";
@@ -195,17 +198,17 @@ async function updateFeedback(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            feedbackId: feedbackId,
             versionId: versionId,
             recipeId: recipeId,
             feedbackComment: feedbackComment,
             feedbackRating: feedbackRating,
-            feedbackDate: feedbackDate
+            feedbackDate: feedbackDate,
+            feedbackId: feedbackId
         })
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('updateFeedbackResult');
+    
 
     if (responseData.success) {
         messageElement.textContent = "Feedback updated successfully!";
