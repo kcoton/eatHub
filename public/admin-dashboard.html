@@ -110,7 +110,7 @@
         <h2 id="count-versions">Number of Versions per Recipe (Aggregation - Having)</h2>
         <p>This counts the number of versions per recipe, and only shows recipes having >= X versions.</p>
         <form id="countVersion" class="count-versions">
-            Number of Versions >= <input text type="text" id="countInput" min="0" placeholder="#"></input>
+            Number of Versions >= <input text type="number" id="countInput" min="0" placeholder="#" required="true"></input>
             <br><button type="submit">Show</button>
             <br><div id="aggregationHavingResult"></div>
         </form>
