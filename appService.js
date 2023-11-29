@@ -328,6 +328,26 @@ async function nestedQueryFeedback(age) {
     });
 }
 
+// Division
+async function division() {
+    return await withOracleDB(async (connection) => {
+        let query = `SELECT Name, USERID
+                        FROM USERINFO U
+                        WHERE NOT EXISTS
+                            ((SELECT F1.RECIPEID
+                                FROM FEEDBACK F1)
+                            MINUS
+                            (SELECT F2.RECIPEID
+                                FROM FEEDBACK F2
+                                WHERE F2.USERID = U.USERID))`;
+        const result = await connection.execute(query);
+        return result.rows;
+    }).catch((e) => {
+        console.log("Error at division", e);
+        return [];
+    });
+}
+
 module.exports = {
     testOracleConnection,
     createTables,
@@ -344,5 +364,6 @@ module.exports = {
     getTableWithHeader,
     countFeedbackByUser,
     nestedQueryFeedback,
-    queryTableWhere
+    queryTableWhere, 
+    division
 };
