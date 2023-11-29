@@ -169,4 +169,13 @@ router.get('/aggregation-with-having-dataset/:count', async (req, res) => {
     }
 });
 
+router.get('/division-everyone-commented-dataset', async (req, res) => {
+    const tableContent = await appService.division();
+    if (tableContent) {
+        res.json({ success: true, data: tableContent });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;

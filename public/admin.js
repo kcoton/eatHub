@@ -8,7 +8,8 @@ const TABLE = {
     FEEDBACK: { id: 'feedbackTable', name: 'feedback' },
     HAVING_TABLE: {id: 'havingTable' },
     JOIN_FEEDBACK: { id: 'joinFeedbackTable' },
-    COUNT_FEEDBACK: { id: 'countFeedbackTable' }
+    COUNT_FEEDBACK: { id: 'countFeedbackTable' },
+    DIVISION_TABLE: {id : 'divisionTable'}
 }
 
 // Inserts new user into the UserInfo table.
@@ -327,6 +328,41 @@ async function aggregationHaving(event) {
     }
 }
 
+// Returns a table with the number of counts of version for a Recipe
+async function division(event) {
+    event.preventDefault();
+    
+    const tableElement = document.getElementById(TABLE.DIVISION_TABLE.id);
+    const tableBody = tableElement.querySelector('tbody');
+    
+    const messageElement = document.getElementById('divisionHavingResult');
+
+    const response = await fetch(`/division-everyone-commented-dataset`, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    if (responseData.success) {
+        messageElement.textContent = 'Number of user that commented on all recipes successful!';
+        tableContent.forEach(tuple => {
+            const row = tableBody.insertRow();
+            tuple.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });  
+    } else {
+        messageElement.textContent = "Error with Number of user that commented on all recipes!";
+    }
+}
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -340,4 +376,5 @@ window.onload = function() {
     // document.getElementById("getAllColumns").addEventListener("click", getAllColumns);
     document.getElementById("countVersion").addEventListener("submit", aggregationHaving);
     document.getElementById("countFeedback").addEventListener("submit", countFeedback);
+    document.getElementById("divisionEveryoneCommented").addEventListener("submit", division);
 };
