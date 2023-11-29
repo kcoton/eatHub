@@ -217,7 +217,7 @@ async function getAllTables() {
         })
         dropdownElement.appendChild(dropdown);
     }).catch((err) => {
-        console.log(err);
+        // console.log(err);
         messageElement.textContent = "Error Querying!";
     })
 }
@@ -260,7 +260,7 @@ async function getAllColumns() {
 
         dropdownElement.appendChild(dropdown);
     }).catch((err) => {
-        console.log(err);
+        // console.log(err);
         messageElement.textContent = "Error Querying!";
     })
 }
@@ -268,27 +268,31 @@ async function getAllColumns() {
 async function submitQuery() {
     const messageElement = document.getElementById('currentTable');
 
-    let tableName = document.getElementById('dropdownTableValue');
-    let tableNameString = tableName.value.trim();
-    let columnNames = document.getElementById('dropdownColumnsValues');
-    let columnNamesString = Array.from(columnNames.selectedOptions).map(option => option.value).join(', ')
-    
-    console.log(`/query-dataset/${tableNameString}/${columnNamesString}`);
+    try {
+        let tableName = document.getElementById('dropdownTableValue');
+        let tableNameString = tableName.value.trim();
+        let columnNames = document.getElementById('dropdownColumnsValues');
+        let columnNamesString = Array.from(columnNames.selectedOptions).map(option => option.value).join(', ')
+        
+        // console.log(`/query-dataset/${tableNameString}/${columnNamesString}`);
 
-    fetch(`/query-dataset/${tableNameString}/${columnNamesString}`, {
-        method: 'GET'
-    }).then(response => response.json()
-    ).then(async (data) => {
-        let worked = await renderTable("Queried Results", data)
-        if (worked) {
-            messageElement.textContent = "Query Complete. Table updated!";
-        } else {
-            messageElement.textContent = "Query Failed!";
-        }
-    }).catch((err) => {
-        console.log(err);
-        messageElement.textContent = "Error Querying!";
-    })
+        fetch(`/query-dataset/${tableNameString}/${columnNamesString}`, {
+            method: 'GET'
+        }).then(response => response.json()
+        ).then(async (data) => {
+            let worked = await renderTable("Queried Results", data)
+            if (worked) {
+                messageElement.textContent = "Query Complete. Table updated!";
+            } else {
+                messageElement.textContent = "Query Failed!";
+            }
+        }).catch((err) => {
+            // console.log(err);
+            messageElement.textContent = "Error Querying!";
+        })
+    } catch(err) {
+        messageElement.textContent = "Query Incomplete.";
+    }
 }
 
 // Returns a table with the number of counts of version for a Recipe
