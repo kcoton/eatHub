@@ -208,7 +208,7 @@ async function updateFeedback(versionId, recipeId, feedbackComment, feedbackRati
     return await withOracleDB(async (connection) => {
         const query = 
             `UPDATE FEEDBACK 
-            SET versionId = :versionId, recipeId = :recipeId, feedbackComment = :feedbackComment, feedbackRating = :feedbackRating, feedbackDate = :feedbackDate 
+            SET versionId = :versionId, recipeId = :recipeId, feedbackComment = :feedbackComment, feedbackRating = :feedbackRating, feedbackDate = TO_DATE(:feedbackDate, 'YYYY-MM-DD') 
             WHERE feedbackId = :feedbackId`;
         const result = await connection.execute(
             query,
