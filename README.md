@@ -1,5 +1,10 @@
-# NOTE TO TA
-Milestone 4 pdf in milestones folder (https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_i0q5c_p9k6b_u3s3n/tree/main/milestones)
+# Demo Screenshots
+![](/demo-screenshots/homepage-login.png)
+![](/demo-screenshots/insert-user-admin.png)
+![](/demo-screenshots/admin-demo-gif-1.gif)
+![](/demo-screenshots/feedback-update-contributor.png)
+![](/demo-screenshots/contributor-demo-gif-1.gif)
+![](/demo-screenshots/contributor-demo-gif-2.gif)
 
 # EatHub
 ## Summary
